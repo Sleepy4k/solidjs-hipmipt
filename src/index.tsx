@@ -3,7 +3,10 @@ import './index.css';
 
 import { render } from 'solid-js/web';
 import { Router } from '@solidjs/router';
-import App from './app';
+import App from '@/app';
+
+// Set Dynamic page title
+document.title = 'HIPMI PT ITTelkom';
 
 const root = document.getElementById('root');
 

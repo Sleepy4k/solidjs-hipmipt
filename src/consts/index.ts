@@ -1,0 +1,9 @@
+import { APP_ENV, APP_NAME, MAIN_API_URL, EXPORT_API_URL, AUTH_API_URL } from './app.config';
+
+export {
+  APP_ENV,
+  APP_NAME,
+  MAIN_API_URL,
+  AUTH_API_URL,
+  EXPORT_API_URL
+};

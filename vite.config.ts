@@ -1,7 +1,13 @@
+import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
+import { dirname, resolve } from 'path';
 import solidPlugin from 'vite-plugin-solid';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 export default defineConfig({
+  base: '/',
   plugins: [
     /* 
     Uncomment the following line to enable solid-devtools.
@@ -10,7 +16,21 @@ export default defineConfig({
     // devtools(),
     solidPlugin(),
   ],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+      '@consts': resolve(__dirname, './src/consts'),
+      '@pages': resolve(__dirname, './src/pages'),
+      '@enums': resolve(__dirname, './src/enums'),
+      '@types': resolve(__dirname, './src/types'),
+      '@interfaces': resolve(__dirname, './src/interaface'),
+      '@contexts': resolve(__dirname, './src/contexts'),
+      '@utils': resolve(__dirname, './src/utils'),
+      '@services': resolve(__dirname, './src/services')
+    }
+  },
   server: {
+    host: true,
     port: 3000,
   },
   build: {

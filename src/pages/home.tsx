@@ -1,7 +1,12 @@
 import { createSignal } from 'solid-js';
+import { theme } from '@contexts';
+import { println } from '@/utils';
 
 export default function Home() {
+  const themeCtx = theme.useTheme();
   const [count, setCount] = createSignal(0);
+
+  println('System', 'Welcome to HIPMI PT');
 
   return (
     <section class="bg-gray-100 text-gray-700 p-8">
@@ -24,6 +29,17 @@ export default function Home() {
         >
           +
         </button>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <button
+          class="border rounded-lg px-2 border-gray-900"
+          onClick={() => themeCtx.themeFunc()}
+        >
+          Change
+        </button>
+
+        <output class="p-10px">Current Theme: {themeCtx.theme().valueOf()}</output>
       </div>
     </section>
   );
