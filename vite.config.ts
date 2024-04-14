@@ -26,7 +26,8 @@ export default defineConfig({
       '@interfaces': resolve(__dirname, './src/interaface'),
       '@contexts': resolve(__dirname, './src/contexts'),
       '@utils': resolve(__dirname, './src/utils'),
-      '@services': resolve(__dirname, './src/services')
+      '@services': resolve(__dirname, './src/services'),
+      '@components': resolve(__dirname, './src/components')
     }
   },
   server: {

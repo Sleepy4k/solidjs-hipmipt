@@ -21,7 +21,8 @@
       "@utils": ["./src/utils/index.ts"],
       "@interfaces": ["./src/interfaces/index.ts"],
       "@contexts": ["./src/contexts/index.ts"],
-      "@services": ["./src/services/index.ts"]
+      "@services": ["./src/services/index.ts"],
+      "@components/*": ["./src/components/*"]
     }
   }
 }

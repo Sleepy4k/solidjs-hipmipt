@@ -72,7 +72,8 @@ module.exports = {
           ['@interfaces', './src/interfaces'],
           ['@contexts', './src/contexts'],
           ['@utils', './src/utils'],
-          ['@services', './src/services']
+          ['@services', './src/services'],
+          ['@components', './src/components']
         ]
       }
     }

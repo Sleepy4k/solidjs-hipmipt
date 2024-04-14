@@ -1,10 +1,10 @@
-import { createSignal } from 'solid-js';
 import { theme } from '@contexts';
-import { println } from '@/utils';
+import { println } from '@utils';
+import { useNavigate } from '@solidjs/router';
 
 export default function Home() {
+  const navigate = useNavigate();
   const themeCtx = theme.useTheme();
-  const [count, setCount] = createSignal(0);
 
   println('System', 'Welcome to HIPMI PT');
 
@@ -16,18 +16,16 @@ export default function Home() {
       <div class="flex items-center space-x-2">
         <button
           class="border rounded-lg px-2 border-gray-900"
-          onClick={() => setCount(count() - 1)}
+          onClick={() => navigate('/login')}
         >
-          -
+          Login
         </button>
-
-        <output class="p-10px">Count: {count()}</output>
 
         <button
           class="border rounded-lg px-2 border-gray-900"
-          onClick={() => setCount(count() + 1)}
+          onClick={() => navigate('/register')}
         >
-          +
+          Register
         </button>
       </div>
 
