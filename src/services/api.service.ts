@@ -16,7 +16,7 @@ const initService = async (_props: IServiceProp, method: EApiMethod = EApiMethod
 
   const requestOption = {
     headers: {
-      Authorization: `Bearer ${userToken}`,
+      ...(userToken ? { Authorization: `Bearer ${userToken}` } : {}),
       ...props.headers
     },
     params: props.params,
@@ -35,6 +35,11 @@ const initService = async (_props: IServiceProp, method: EApiMethod = EApiMethod
     }
 
     if (props.success) props.success(response);
+    else {
+      const result = response.data;
+
+      println(props.name, result.message, EDebugType.SUCCESS);
+    }
 
     if (props.server == EApiType.EXPORT) {
       const type = response.headers['content-type'];
@@ -47,10 +52,6 @@ const initService = async (_props: IServiceProp, method: EApiMethod = EApiMethod
       link.click();
 
       println(props.name, 'Success load export data', EDebugType.SUCCESS);
-    } else {
-      const result = response.data;
-
-      println(props.name, result.message, EDebugType.SUCCESS);
     }
   } catch (err) {
     if (props.error) props.error(err);

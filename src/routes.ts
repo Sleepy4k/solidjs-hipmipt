@@ -21,6 +21,10 @@ export const routes: RouteDefinition[] = [
     component: lazy(() => import('@pages/forgot.password')),
   },
   {
+    path: 'forgot-proccess',
+    component: lazy(() => import('@pages/forgot.proccess')),
+  },
+  {
     path: '**',
     component: lazy(() => import('./errors/404')),
   },

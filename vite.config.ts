@@ -27,7 +27,8 @@ export default defineConfig({
       '@contexts': resolve(__dirname, './src/contexts'),
       '@utils': resolve(__dirname, './src/utils'),
       '@services': resolve(__dirname, './src/services'),
-      '@components': resolve(__dirname, './src/components')
+      '@components': resolve(__dirname, './src/components'),
+      '@layouts': resolve(__dirname, './src/layouts')
     }
   },
   server: {

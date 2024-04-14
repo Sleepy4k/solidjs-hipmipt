@@ -21,7 +21,11 @@ const backendApi = (server: EApiType = EApiType.MAIN) => {
   }
 
   return axios.create({
-    baseURL: String(serviceUrl)
+    baseURL: String(serviceUrl),
+    headers: {
+      Accept: '*/*',
+      'Content-Type': 'application/json'
+    }
   });
 };
 
