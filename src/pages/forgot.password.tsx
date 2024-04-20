@@ -2,8 +2,9 @@ import { useNavigate } from '@solidjs/router';
 import { createFormGroup, createFormControl } from 'solid-forms';
 import { createEffect, createSignal } from 'solid-js';
 import { convertToTitleCase, formValidator, println } from '@utils';
-import { EDebugType } from '@enums';
+import { EApiType, EDebugType } from '@enums';
 import { AuthLayout } from '@layouts';
+import { ApiService } from '@services';
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -78,11 +79,25 @@ const ForgotPassword = () => {
   };
 
   const handleSubmit = async () => {
-    group.markTouched(false);
-    group.markSubmitted(false);
-    setLoading(false);
+    await ApiService.post({
+      url: 'public/forgot-password',
+      name: 'Forgot Password',
+      data: {
+        email: group.value.email
+      },
+      server: EApiType.AUTH,
+      success: (res: any) => {
+        const value = res.data;
 
-    navigate('/forgot-proccess', { replace: true, state: { email: group.value.email } });
+        println('Forgot Password', value.message, EDebugType.SUCCESS);
+        navigate('/forgot-proccess', { replace: true, state: { email: group.value.email } });
+      },
+      finally: () => {
+        group.markTouched(false);
+        group.markSubmitted(false);
+        setLoading(false);
+      }
+    });
   };
 
   return (

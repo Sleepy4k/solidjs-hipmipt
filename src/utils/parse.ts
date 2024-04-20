@@ -1,4 +1,4 @@
-import type { IParseData } from '@types';
+import type { TParseData } from '@types';
 
 const convertToTitleCase = (text: string) => {
   const splitText = text.split('_');
@@ -12,11 +12,11 @@ const convertToTitleCase = (text: string) => {
   return titleCaseText;
 };
 
-const convertStringToNumber: IParseData = (data: string | number) => {
+const convertStringToNumber: TParseData = (data: string | number) => {
   return Number(data);
 };
 
-const convertNumberToString: IParseData = (data: string | number) => {
+const convertNumberToString: TParseData = (data: string | number) => {
   return String(data);
 };
 

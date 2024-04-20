@@ -1,4 +1,3 @@
-
 import { useNavigate } from '@solidjs/router';
 import ChangeTheme from '@components/change.theme';
 import { APP_NAME } from '@consts';

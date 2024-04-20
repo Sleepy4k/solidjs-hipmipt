@@ -65,7 +65,7 @@ const initService = async (_props: IServiceProp, method: EApiMethod = EApiMethod
         for (let index = 0; index < errors.length; index++) {
           println(props.name, errors[index], EDebugType.ERROR);
         }
-      } else println(props.name, result.message, EDebugType.ERROR);
+      }
     }
   } finally {
     if (props.finally) props.finally();

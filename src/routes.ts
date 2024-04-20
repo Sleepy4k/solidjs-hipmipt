@@ -21,6 +21,14 @@ export const routes: RouteDefinition[] = [
     component: lazy(() => import('@pages/forgot.password')),
   },
   {
+    path: 'forgot-password/verify/:id',
+    component: lazy(() => import('@pages/forgot.verify')),
+  },
+  {
+    path: 'forgot-password/done',
+    component: lazy(() => import('@pages/forgot.done')),
+  },
+  {
     path: 'forgot-proccess',
     component: lazy(() => import('@pages/forgot.proccess')),
   },

@@ -1,5 +1,7 @@
-import type IParseData from './parse.word';
+import type TParseData from './parse.word';
+import type TAuthUpdateData from './auth.context.update';
 
 export type {
-  IParseData
+  TParseData,
+  TAuthUpdateData
 };

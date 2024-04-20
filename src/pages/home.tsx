@@ -8,8 +8,6 @@ export default function Home() {
   const navigate = useNavigate();
   const themeCtx = theme.useTheme();
 
-  println('System', 'Welcome to HIPMI PT');
-
   const handleApi = async () => {
     await ApiService.get({
       url: '/',
