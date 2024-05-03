@@ -1,5 +1,7 @@
-import AuthLayout from './AuthLayout';
+import AuthLayout from './auth.layout';
+import DashboardLayout from './dashboard.layout';
 
 export {
-  AuthLayout
+  AuthLayout,
+  DashboardLayout
 };

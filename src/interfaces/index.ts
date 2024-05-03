@@ -5,6 +5,8 @@ import IAuthLayoutProp from './auth.layout.prop';
 import IAuthUserData from './auth.user.data';
 import IAuthMiscData from './auth.misc.data';
 import IAuthContext from './auth.context';
+import IListItemData from './list.item.data';
+import IMenuItemProp from './menu.item.prop';
 
 export {
   IThemeContext,
@@ -13,5 +15,7 @@ export {
   IAuthLayoutProp,
   IAuthMiscData,
   IAuthUserData,
-  IAuthContext
+  IAuthContext,
+  IListItemData,
+  IMenuItemProp
 };

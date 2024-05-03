@@ -1,13 +1,15 @@
 import { useNavigate, A } from '@solidjs/router';
 import { createFormGroup, createFormControl } from 'solid-forms';
 import { convertToTitleCase, formValidator, println } from '@utils';
-import { EApiType, EDebugType } from '@enums';
+import { EApiType, EAuthMiscStatus, EAuthUpdateCategory, EDebugType } from '@enums';
 import { createEffect, createSignal } from 'solid-js';
 import { ApiService } from '@services';
 import { AuthLayout } from '@layouts';
+import { auth } from '@contexts';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { updateData } = auth.useAuth();
   const [loading, setLoading] = createSignal<boolean>(false);
   const group = createFormGroup({
     username_or_email: createFormControl('', {
@@ -62,8 +64,38 @@ const Login = () => {
       server: EApiType.AUTH,
       success: (res: any) => {
         const value = res.data;
+        console.log(JSON.stringify(value));
+        
 
-        println('Login', value.message, EDebugType.SUCCESS);
+        try {
+          updateData(EAuthUpdateCategory.STATUS, true);
+          updateData(EAuthUpdateCategory.USER, {
+            email: value.data?.email,
+            username: value.data?.username
+          });
+          updateData(EAuthUpdateCategory.MISC, {
+            logo: value.data?.logo,
+            status: (value.data?.verified == EAuthMiscStatus.VERIFIED.valueOf()) ? EAuthMiscStatus.VERIFIED : EAuthMiscStatus.UNVERIFIED
+          });
+          // updateData(EAuthUpdateCategory.TOKEN, value.token);
+          updateData(EAuthUpdateCategory.ROLE, value.data?.role);
+
+          println('Login', value.message, EDebugType.SUCCESS);
+          navigate('/dashboard', { replace: true });
+        } catch (_err) {
+          updateData(EAuthUpdateCategory.STATUS, false);
+
+          println('Login', 'Something went wrong when saving data from database', EDebugType.ERROR);
+          navigate('/', { replace: true });
+        }
+      },
+      error: (err: any) => {
+        if (Object.keys(err.data.data).length < 1 && err.data.status == 'unprocessable entity') {
+          println('Login', err.data.message, EDebugType.ERROR);
+          return;
+        }
+
+        println('Login', 'Something went wrong when checking data from database', EDebugType.ERROR);
       },
       finally: () => {
         group.markTouched(false);
@@ -74,7 +106,7 @@ const Login = () => {
   };
 
   return (
-    <AuthLayout>
+    <AuthLayout disabled={loading()}>
       <span class="xl:text-xl font-semibold">
         Hello, 👋 Welcome Back!
       </span>
@@ -120,22 +152,28 @@ const Login = () => {
         </label>
         <div class="flex items-center justify-between">
           <div class="form-control"/>
-          <A
-            href="/forgot-password"
-            class="link link-primary font-semibold text-xs no-underline"
-          >
-            Forgot Password?
-          </A>
+          {loading() ? (
+            <div class="link link-primary font-semibold text-xs no-underline">Forgot Password?</div>
+          ) : (
+            <A
+              href="/forgot-password"
+              class="link link-primary font-semibold text-xs no-underline"
+            >
+              Forgot Password?
+            </A>
+          )}
         </div>
-        <div
+        <button
+          disabled={loading()}
           onClick={handleValidation}
           class="btn btn-block btn-primary"
         >
-          Log In
-        </div>
+          {loading() ? <span class="loading loading-dots loading-lg"/> : <span>Log In</span>}
+        </button>
         <div class="divider text-sm">OR</div>
         <div class="w-full flex justify-center items-center gap-4">
           <button
+            disabled={loading()}
             onClick={() => navigate('/register')}
             class="btn btn-block dark:btn-neutral"
           >

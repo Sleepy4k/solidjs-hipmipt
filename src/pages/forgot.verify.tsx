@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams, useSearchParams } from '@solidjs/router';
+import { useLocation, useNavigate, useParams } from '@solidjs/router';
 import { createFormGroup, createFormControl } from 'solid-forms';
 import { convertToTitleCase, formValidator, println } from '@utils';
 import { EApiType, EDebugType } from '@enums';
@@ -25,11 +25,10 @@ const Register = () => {
   });
 
   createEffect(() => {
-    const { state } = useLocation();
-    const [searchQuery] = useSearchParams();
+    const { state, query } = useLocation();
 
-    const otpData = searchQuery?.otp || null;
-    const emailData = searchQuery?.email || null;
+    const otpData = query?.otp || null;
+    const emailData = query?.email || null;
 
     if (otpData != null && emailData != null && !state?.isOk) {
       navigate(`/forgot-password/verify/${params.id}`, { replace: true, state: { otp: otpData, email: emailData, isOk: true } });
@@ -132,7 +131,7 @@ const Register = () => {
   };
 
   return (
-    <AuthLayout>
+    <AuthLayout disabled={loading()}>
       {!isValid() ? (
         <>
           <span class="xl:text-xl font-semibold">
@@ -141,12 +140,13 @@ const Register = () => {
             change password request.
           </span>
           <div class="flex items-center justify-between" />
-          <div
+          <button
+            disabled={loading()}
             onClick={() => navigate('/login', { replace: true })}
             class="btn btn-block btn-primary"
           >
             Back
-          </div>
+          </button>
         </>
       ) : (
         <>
@@ -198,15 +198,17 @@ const Register = () => {
               />
             </label>
             <div class="flex items-center justify-between" />
-            <div
+            <button
+              disabled={loading()}
               onClick={handleValidation}
               class="btn btn-block btn-primary"
             >
-              Change Password
-            </div>
+              {loading() ? <span class="loading loading-dots loading-lg"/> : <span>Change Password</span>}
+            </button>
             <div class="divider text-sm" />
             <div class="w-full flex justify-center items-center gap-4">
               <button
+                disabled={loading()}
                 onClick={() => navigate('/')}
                 class="btn btn-block dark:btn-neutral"
               >

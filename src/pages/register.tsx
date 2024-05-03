@@ -81,6 +81,9 @@ const Register = () => {
         println('Register', value.message, EDebugType.SUCCESS);
         navigate('/login');
       },
+      error: () => {
+        println('Register', 'Something went wrong when registering data', EDebugType.ERROR);
+      },
       finally: () => {
         group.markTouched(false);
         group.markSubmitted(false);
@@ -90,7 +93,7 @@ const Register = () => {
   };
 
   return (
-    <AuthLayout>
+    <AuthLayout disabled={loading()}>
       <span class="xl:text-xl font-semibold">
         Hai, 👋 Ready to join us?
       </span>
@@ -174,15 +177,17 @@ const Register = () => {
           />
         </label>
         <div class="flex items-center justify-between" />
-        <div
+        <button
+          disabled={loading()}
           onClick={handleValidation}
           class="btn btn-block btn-primary"
         >
-          Register
-        </div>
+          {loading() ? <span class="loading loading-dots loading-lg"/> : <span>Register</span>}
+        </button>
         <div class="divider text-sm">OR</div>
         <div class="w-full flex justify-center items-center gap-4">
           <button
+            disabled={loading()}
             onClick={() => navigate('/login')}
             class="btn btn-block dark:btn-neutral"
           >

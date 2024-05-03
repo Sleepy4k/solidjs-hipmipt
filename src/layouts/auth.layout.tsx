@@ -15,6 +15,7 @@ const AuthLayout = (props: IAuthLayoutProp) => {
         <div class="w-full h-screen xl:h-auto xl:w-[30%] 2xl:w-[25%] 3xl:w-[20%] bg-base-100 rounded-lg shadow-md flex flex-col items-center p-5 pb-7 gap-8 pt-20 xl:pt-7">
           <div class="flex items-center gap-1 xl:gap-2">
             <button
+              disabled={props.disabled ? props.disabled : false}
               onClick={() => navigate('/')}
               class="text-[18px] leading-[1.2] sm:text-lg xl:text-3xl 2xl:text-3xl font-semibold text-base-content dark:text-neutral-200"
             >

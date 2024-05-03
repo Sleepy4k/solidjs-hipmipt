@@ -1,3 +1,5 @@
+//const forbiddenChar = [' ', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', ':', ';', '<', '>', ',', '.', '?', '/', '|'];
+
 const formValidator = {
   required: (value: string) => value.length === 0 ? { isMissing: 'is required' } : null,
   email: (value: string) => (!value.includes('@') || !value.includes('.')) ? { isInvalid: 'invalid email' } : null,

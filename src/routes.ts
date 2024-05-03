@@ -33,6 +33,10 @@ export const routes: RouteDefinition[] = [
     component: lazy(() => import('@pages/forgot.proccess')),
   },
   {
+    path: 'dashboard',
+    component: lazy(() => import('@pages/dashboard.home')),
+  },
+  {
     path: '**',
     component: lazy(() => import('./errors/404')),
   },

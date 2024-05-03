@@ -1,8 +1,7 @@
 import { EAuthMiscStatus } from '@enums';
 
 interface IAuthMiscData {
-  number: string,
-  url: string,
+  logo: string,
   status: EAuthMiscStatus
 }
 

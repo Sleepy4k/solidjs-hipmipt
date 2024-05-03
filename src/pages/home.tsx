@@ -3,6 +3,7 @@ import { println } from '@utils';
 import { useNavigate } from '@solidjs/router';
 import { ApiService } from '@/services';
 import { EApiType, EDebugType } from '@/enums';
+import swal from 'sweetalert';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -16,6 +17,18 @@ export default function Home() {
       error: (err: any) => {
         println('Register', err, EDebugType.ERROR);
       }
+    });
+  };
+
+  const handleSwal = () => {
+    swal({
+      title: 'Are you sure?',
+      text: 'You will be logged out!',
+      icon: 'warning',
+      buttons: ['Cancel', 'Logout'],
+      dangerMode: true,
+    }).then((willLogout) => {
+      if (willLogout) println('Home', 'Logout deh', EDebugType.SUCCESS);
     });
   };
 
@@ -51,7 +64,6 @@ export default function Home() {
         <output class="p-10px">Current Theme: {themeCtx.theme().valueOf()}</output>
       </div>
 
-      
       <div class="flex items-center space-x-2">
         <button
           class="border rounded-lg px-2 border-gray-900"
@@ -60,6 +72,16 @@ export default function Home() {
           Test Api
         </button>
       </div>
+
+      <div class="flex items-center space-x-2">
+        <button
+          class="border rounded-lg px-2 border-gray-900"
+          onClick={handleSwal}
+        >
+          Test Swal
+        </button>
+      </div>
+
     </section>
   );
 }

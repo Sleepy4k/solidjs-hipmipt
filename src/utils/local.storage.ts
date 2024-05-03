@@ -1,5 +1,3 @@
-import { createSignal } from 'solid-js';
-
 function getStorage(key: string, storage = localStorage) {
   const storedValue = storage.getItem(key);
   const initialValue = storedValue ? JSON.parse(storedValue) : null;

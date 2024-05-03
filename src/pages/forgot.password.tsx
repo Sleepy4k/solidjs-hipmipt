@@ -8,7 +8,6 @@ import { ApiService } from '@services';
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
-  const captchaUrl = 'https://dummyimage.com/300x100/000/fff.png&text=';
   const [imageCode, setImageCode] = createSignal<string>('');
   const [code, setCode] = createSignal<number>(0);
   const [loading, setLoading] = createSignal<boolean>(false);
@@ -39,7 +38,7 @@ const ForgotPassword = () => {
 
   const handleCaptcha = () => {
     let key = generateCode() + '+' + generateCode() + '+' + generateCode() + '+' + generateCode();
-    setImageCode(captchaUrl + key);
+    setImageCode(key);
 
     key = key.split('+').join('');
     setCode(Number(key));
@@ -101,7 +100,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <AuthLayout>
+    <AuthLayout disabled={loading()}>
       <span class="xl:text-xl font-semibold">
         Please enter your email address below, and we will send you a link
         to set a new password.
@@ -127,7 +126,7 @@ const ForgotPassword = () => {
         </label>
         <div class="flex items-center justify-between" >
           <div class="form-control">
-            <image src={imageCode()} alt="Captch Code" />
+            <image src={`https://dummyimage.com/300x100/000/fff.png&text=${imageCode()}`} alt="Captch Code" />
           </div>
         </div>
         <label class="input input-bordered min-w-full flex items-center gap-2">
@@ -145,7 +144,7 @@ const ForgotPassword = () => {
           onClick={handleValidation}
           class="btn btn-block btn-primary"
         >
-          Submit
+          {loading() ? <span class="loading loading-dots loading-lg"/> : <span>Submit</span>}
         </button>
         <div class="divider text-sm" />
         <div class="w-full flex justify-center items-center gap-4">

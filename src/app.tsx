@@ -3,7 +3,7 @@ import { useRoutes } from '@solidjs/router';
 
 import { Toaster } from 'solid-toast';
 import { routes } from './routes';
-import { theme } from '@contexts';
+import { theme, auth } from '@contexts';
 
 const App: Component = () => {
   const Route = useRoutes(routes);
@@ -11,9 +11,11 @@ const App: Component = () => {
   return (
     <>
       <Toaster />
-      <theme.ThemeProvider>
-        <Route />
-      </theme.ThemeProvider>
+      <auth.AuthProvider>
+        <theme.ThemeProvider>
+          <Route />
+        </theme.ThemeProvider>
+      </auth.AuthProvider>
     </>
   );
 };

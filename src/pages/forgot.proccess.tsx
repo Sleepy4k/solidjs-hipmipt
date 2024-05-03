@@ -14,7 +14,7 @@ const ForgotProccess = () => {
     <AuthLayout>
       <span class="xl:text-xl font-semibold">
         We’ve sent you an email with a link to reset your password
-        on {state.email} address.
+        on {state?.email} address.
         Please check your email if not exist try check on spam section.
       </span>
       <div class="flex items-center justify-between" />

@@ -3,6 +3,7 @@ import backendApi from './base.service';
 import { println, convertErrorResponseData, getStorage } from '@utils';
 import { EApiMethod, EApiType, EDebugType } from '@enums';
 import { IServiceProp } from '@interfaces';
+import { TOKEN_KEY_PREFIX } from '@consts';
 
 /* eslint-disable solid/reactivity */
 const initService = async (_props: IServiceProp, method: EApiMethod = EApiMethod.GET) => {
@@ -12,7 +13,7 @@ const initService = async (_props: IServiceProp, method: EApiMethod = EApiMethod
     headers: {}
   }, _props);
 
-  const userToken = getStorage('hipmi-auth-data');
+  const userToken = getStorage(TOKEN_KEY_PREFIX);
 
   const requestOption = {
     headers: {
@@ -54,7 +55,9 @@ const initService = async (_props: IServiceProp, method: EApiMethod = EApiMethod
       println(props.name, 'Success load export data', EDebugType.SUCCESS);
     }
   } catch (err) {
-    if (props.error) props.error(err);
+    console.log(err);
+
+    if (props.error) props.error(err.response);
 
     if (err.response) {
       const result = err.response.data;

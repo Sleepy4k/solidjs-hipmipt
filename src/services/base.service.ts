@@ -25,7 +25,8 @@ const backendApi = (server: EApiType = EApiType.MAIN) => {
     headers: {
       Accept: '*/*',
       'Content-Type': 'application/json'
-    }
+    },
+    withCredentials: true
   });
 };
 
