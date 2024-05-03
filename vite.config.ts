@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-  base: '/',
+  base: '',
   plugins: [
     /* 
     Uncomment the following line to enable solid-devtools.
