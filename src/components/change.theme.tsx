@@ -1,16 +1,16 @@
-import { theme } from '@contexts';
+import { Theme } from '@contexts';
 
 export default function ChangeTheme() {
-  const { themeFunc } = theme.useTheme();
+  const { themeFunc } = Theme.useTheme();
 
   return (
     <div class="w-full">
       <label class="swap swap-rotate">
         <input
-          onClick={themeFunc}
           type="checkbox"
-          //   value="synthwave"
+          onClick={themeFunc}
           class="theme-controller"
+          placeholder='Change Theme'
         />
         <svg
           class="swap-off fill-current w-7 h-6 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 3xl:w-[30px] 3xl:h-[30px]"

@@ -1,13 +1,13 @@
 import { HiSolidBars3CenterLeft } from 'solid-icons/hi';
 import { RiMediaFullscreenFill, RiMediaFullscreenExitFill } from 'solid-icons/ri';
-import { Link } from '@solidjs/router';
+import { A } from '@solidjs/router';
 import ChangeTheme from './change.theme';
 import { For, createEffect, createSignal } from 'solid-js';
 import { APP_NAME } from '@consts';
 import swal from 'sweetalert';
 import { ApiService } from '@services';
 import { EApiType, EDebugType } from '@enums';
-import { auth } from '@contexts';
+import { Auth } from '@contexts';
 import { println } from '@utils';
 import MenuItem from './menu.item';
 
@@ -17,7 +17,7 @@ interface INavBarProps {
 }
 
 export default function NavBar(props: INavBarProps) {
-  const { misc, logoutUser } = auth.useAuth();
+  const { misc, logoutUser } = Auth.useAuth();
   const root = document.getElementById('root');
   const [isFullScreen, setIsFullScreen] = createSignal<boolean>(false);
   const [isDrawerOpen, setIsDrawerOpen] = createSignal<boolean>(false);
@@ -87,14 +87,14 @@ export default function NavBar(props: INavBarProps) {
             />
             <div class="menu p-4 w-auto min-h-full bg-base-200 text-base-content">
               {!props.disabled ? (
-                <Link
+                <A
                   href="/dashboard"
                   class="flex items-center gap-1 xl:gap-2 mt-1 mb-5"
                 >
                   <span class="text-[16px] leading-[1.2] sm:text-lg xl:text-xl 2xl:text-2xl font-semibold text-base-content dark:text-neutral-200">
                     {APP_NAME}
                   </span>
-                </Link>
+                </A>
               ) : (
                 <div class="flex items-center gap-1 xl:gap-2 mt-1 mb-5">
                   <span class="text-[16px] leading-[1.2] sm:text-lg xl:text-xl 2xl:text-2xl font-semibold text-base-content dark:text-neutral-200">
@@ -118,11 +118,11 @@ export default function NavBar(props: INavBarProps) {
 
         {/* navbar logo */}
         {!props.disabled ? (
-          <Link href="/dashboard" class="flex items-center gap-1 xl:gap-2">
+          <A href="/dashboard" class="flex items-center gap-1 xl:gap-2">
             <span class="text-[16px] leading-[1.2] sm:text-lg xl:text-xl 2xl:text-2xl font-semibold text-base-content dark:text-neutral-200">
               {APP_NAME}
             </span>
-          </Link>
+          </A>
         ) : (
           <div class="flex items-center gap-1 xl:gap-2">
             <span class="text-[16px] leading-[1.2] sm:text-lg xl:text-xl 2xl:text-2xl font-semibold text-base-content dark:text-neutral-200">
@@ -171,11 +171,11 @@ export default function NavBar(props: INavBarProps) {
           >
             {!props.disabled ? (
               <>
-                <Link href="/dashboard/profile">
+                <A href="/dashboard/profile">
                   <li>
                     <a class="justify-between">My Profile</a>
                   </li>
-                </Link>
+                </A>
                 <li onClick={() => confirmLogout()}>
                   <a>Log Out</a>
                 </li>
