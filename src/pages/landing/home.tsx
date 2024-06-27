@@ -1,13 +1,19 @@
-import { theme } from '@contexts';
+import { Theme } from '@contexts';
 import { println } from '@utils';
 import { useNavigate } from '@solidjs/router';
 import { ApiService } from '@/services';
 import { EApiType, EDebugType } from '@/enums';
 import swal from 'sweetalert';
+import { APP_NAME } from '@consts';
+import { onMount } from 'solid-js';
 
 export default function Home() {
   const navigate = useNavigate();
-  const themeCtx = theme.useTheme();
+  const themeCtx = Theme.useTheme();
+
+  onMount(() => {
+    document.title = APP_NAME;
+  });
 
   const handleApi = async () => {
     await ApiService.get({

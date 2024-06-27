@@ -1,12 +1,13 @@
-import { useNavigate } from '@solidjs/router';
-import { createFormGroup, createFormControl } from 'solid-forms';
-import { convertToTitleCase, formValidator, println } from '@utils';
-import { EApiType, EDebugType } from '@enums';
-import { createEffect, createSignal } from 'solid-js';
-import { ApiService } from '@services';
 import { AuthLayout } from '@layouts';
+import { ApiService } from '@services';
+import { Show, createSignal } from 'solid-js';
+import { useNavigate } from '@solidjs/router';
+import { EApiType, EDebugType } from '@enums';
+import { formValidator, println } from '@utils';
+import { TextInput, TextError } from '@components/text.input';
+import { createFormGroup, createFormControl } from 'solid-forms';
 
-const Register = () => {
+export default function Register() {
   const navigate = useNavigate();
   const [loading, setLoading] = createSignal<boolean>(false);
   const group = createFormGroup({
@@ -28,46 +29,32 @@ const Register = () => {
     }),
   });
 
-  createEffect(() => {
-    if (group.isDisabled || group.isValid) return;
-  });
-
   const handleValidation = () => {
     if (group.isSubmitted) {
-      println('Register', 'Form already submitted', EDebugType.ERROR);
+      println('System', 'Formulir sudah dikirimkan', EDebugType.ERROR);
       return;
     }
 
     if (!group.isValid) {
-      Object.entries(group.controls).forEach(([fieldName, error]) => {
-        if (error.errors) {
-          const errors = Object.values(error.errors);
-
-          for (let index = 0; index < errors.length; index++) {
-            println('Register', `${convertToTitleCase(fieldName)} ${errors[index]}`, EDebugType.ERROR);
-          }
-        }
-      });
-
+      println('System', 'Silahkan isi semua formulir', EDebugType.ERROR);
       return;
     }
 
     if (group.value.password !== group.value.password_confirmation) {
-      println('Register', 'Password confirmation not match', EDebugType.ERROR);
+      group.controls.password_confirmation.setErrors({ notMatch: 'tidak cocok dengan password' });
       return;
     }
 
-    group.markTouched(true);
     group.markSubmitted(true);
-    setLoading(true);
 
+    setLoading(true);
     handleSubmit();
   };
 
   const handleSubmit = async () => {
     await ApiService.post({
       url: 'public/register',
-      name: 'Register',
+      name: 'System',
       data: {
         username: group.value.username,
         email: group.value.email,
@@ -76,16 +63,13 @@ const Register = () => {
       },
       server: EApiType.AUTH,
       success: (res: any) => {
-        const value = res.data;
-
-        println('Register', value.message, EDebugType.SUCCESS);
+        println('System', res.data.message, EDebugType.SUCCESS);
         navigate('/login');
       },
       error: () => {
-        println('Register', 'Something went wrong when registering data', EDebugType.ERROR);
+        println('System', 'Terjadi kesalahan dalam melakukan proses pendaftaran', EDebugType.ERROR);
       },
       finally: () => {
-        group.markTouched(false);
         group.markSubmitted(false);
         setLoading(false);
       }
@@ -93,9 +77,9 @@ const Register = () => {
   };
 
   return (
-    <AuthLayout disabled={loading()}>
+    <AuthLayout disabled={loading()} title='Daftar'>
       <span class="xl:text-xl font-semibold">
-        Hai, 👋 Ready to join us?
+        Hai, 👋 Siap bergabung dengan kami?
       </span>
       <div class="w-full flex flex-col items-stretch gap-3">
         <label class="input input-bordered min-w-full flex items-center gap-2">
@@ -108,14 +92,16 @@ const Register = () => {
             <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
             <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
           </svg>
-          <input
-            type="text"
+          <TextInput
+            type='text'
+            name='username'
             disabled={loading()}
-            onInput={(e) => group.controls.username.setValue(e.currentTarget.value)}
-            class="grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0"
-            placeholder="Username"
+            placeholder='Username'
+            control={group.controls.username}
+            class='grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0'
           />
         </label>
+        <TextError name='Username' control={group.controls.username} />
         <label class="input input-bordered min-w-full flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -126,14 +112,16 @@ const Register = () => {
             <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
             <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
           </svg>
-          <input
-            type="email"
+          <TextInput
+            type='email'
+            name='email'
             disabled={loading()}
-            onInput={(e) => group.controls.email.setValue(e.currentTarget.value)}
-            class="grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0"
-            placeholder="Email"
+            placeholder='Email'
+            control={group.controls.email}
+            class='grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0'
           />
         </label>
+        <TextError name='Email' control={group.controls.email} />
         <label class="input input-bordered flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -147,14 +135,16 @@ const Register = () => {
               clip-rule="evenodd"
             />
           </svg>
-          <input
-            type="password"
+          <TextInput
+            type='password'
+            name='password'
             disabled={loading()}
-            onInput={(e) => group.controls.password.setValue(e.currentTarget.value)}
-            class="grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0"
-            placeholder="Password"
+            placeholder='Password'
+            control={group.controls.password}
+            class='grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0'
           />
         </label>
+        <TextError name='Password' control={group.controls.password} />
         <label class="input input-bordered flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -168,35 +158,53 @@ const Register = () => {
               clip-rule="evenodd"
             />
           </svg>
-          <input
-            type="password"
+          <TextInput
+            type='password'
+            name='password_confirmation'
             disabled={loading()}
-            onInput={(e) => group.controls.password_confirmation.setValue(e.currentTarget.value)}
-            class="grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0"
-            placeholder="Password Confirmation"
+            placeholder='Konfirmasi Password'
+            control={group.controls.password_confirmation}
+            class='grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0'
           />
         </label>
+        <TextError name='Konfirmasi Password' control={group.controls.password_confirmation} />
         <div class="flex items-center justify-between" />
         <button
+          type='submit'
           disabled={loading()}
           onClick={handleValidation}
           class="btn btn-block btn-primary"
         >
-          {loading() ? <span class="loading loading-dots loading-lg"/> : <span>Register</span>}
+          <Show when={!loading()}>
+            <span>Daftar</span>
+          </Show>
+
+          <Show when={loading()}>
+            <span class="loading loading-dots loading-lg" />
+          </Show>
         </button>
         <div class="divider text-sm">OR</div>
         <div class="w-full flex justify-center items-center gap-4">
           <button
+            type='button'
             disabled={loading()}
             onClick={() => navigate('/login')}
             class="btn btn-block dark:btn-neutral"
           >
-            Log In
+            Masuk
+          </button>
+        </div>
+        <div class="w-full flex justify-center items-center gap-4 mt-2">
+          <button
+            type='button'
+            disabled={loading()}
+            onClick={() => navigate('/')}
+            class="btn btn-block dark:btn-neutral"
+          >
+            Home
           </button>
         </div>
       </div>
     </AuthLayout>
   );
-};
-
-export default Register;
+}

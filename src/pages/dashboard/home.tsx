@@ -1,11 +1,9 @@
 import { DashboardLayout } from '@layouts';
 
-const DashboardHome = () => {
+export default function DashboardHome () {
   return (
     <DashboardLayout disabled={false}>
       <span>Hello World</span>
     </DashboardLayout>
   );
-};
-
-export default DashboardHome;
+}

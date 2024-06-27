@@ -1,16 +1,17 @@
-import { useNavigate } from '@solidjs/router';
-import { createFormGroup, createFormControl } from 'solid-forms';
-import { createEffect, createSignal } from 'solid-js';
-import { convertToTitleCase, formValidator, println } from '@utils';
-import { EApiType, EDebugType } from '@enums';
 import { AuthLayout } from '@layouts';
 import { ApiService } from '@services';
+import { useNavigate } from '@solidjs/router';
+import { EApiType, EDebugType } from '@enums';
+import { formValidator, println } from '@utils';
+import { Show, createEffect, createSignal } from 'solid-js';
+import { TextInput, TextError } from '@components/text.input';
+import { createFormGroup, createFormControl } from 'solid-forms';
 
-const ForgotPassword = () => {
+export default function ForgotPassword() {
   const navigate = useNavigate();
-  const [imageCode, setImageCode] = createSignal<string>('');
   const [code, setCode] = createSignal<number>(0);
   const [loading, setLoading] = createSignal<boolean>(false);
+  const [imageCode, setImageCode] = createSignal<string>('');
   const group = createFormGroup({
     email: createFormControl('', {
       required: true,
@@ -26,61 +27,50 @@ const ForgotPassword = () => {
     handleCaptcha();
   });
 
-  createEffect(() => {
-    if (group.isDisabled || group.isValid) return;
-  });
-
   const generateCode = () => {
-    const genCode = Math.floor(Math.random() * 8) + 1;
-
-    return genCode;
+    return Math.floor(Math.random() * 8) + 1;
   };
 
   const handleCaptcha = () => {
-    let key = generateCode() + '+' + generateCode() + '+' + generateCode() + '+' + generateCode();
-    setImageCode(key);
+    let code = '';
+    const length = Math.floor(Math.random() * 2) + 4;
 
-    key = key.split('+').join('');
-    setCode(Number(key));
+    for (let i = 0; i < length; i++) {
+      code += generateCode() + ' ';
+    }
+
+    setImageCode(code);
+    setCode(Number(code.trim().replace(/\s/g, '')));
   };
 
   const handleValidation = () => {
     if (group.isSubmitted) {
-      println('Forgot Password', 'Form already submitted', EDebugType.ERROR);
+      println('System', 'Formulir sudah dikirimkan', EDebugType.ERROR);
       return;
     }
 
     if (!group.isValid) {
-      Object.entries(group.controls).forEach(([fieldName, error]) => {
-        if (!error.errors) return;
-
-        const errors = Object.values(error.errors);
-
-        for (let index = 0; index < errors.length; index++) {
-          println('Forgot Password', `${convertToTitleCase(fieldName)} ${errors[index]}`, EDebugType.ERROR);
-        }
-      });
-
-      return;
-    }
-
-    if (Number(group.value.captchaCode) != code()) {
-      println('Forgot Password', 'Invalid captcha code', EDebugType.ERROR);
+      println('System', 'Silahkan isi semua formulir', EDebugType.ERROR);
       handleCaptcha();
       return;
     }
 
-    group.markTouched(true);
-    group.markSubmitted(true);
-    setLoading(true);
+    if (Number(group.value.captchaCode) != code()) {
+      group.controls.captchaCode.setErrors({ isInvalid: 'Tidak sesuai' });
+      handleCaptcha();
+      return;
+    }
 
+    group.markSubmitted(true);
+
+    setLoading(true);
     handleSubmit();
   };
 
   const handleSubmit = async () => {
     await ApiService.post({
       url: 'public/forgot-password',
-      name: 'Forgot Password',
+      name: 'System',
       data: {
         email: group.value.email
       },
@@ -88,11 +78,13 @@ const ForgotPassword = () => {
       success: (res: any) => {
         const value = res.data;
 
-        println('Forgot Password', value.message, EDebugType.SUCCESS);
-        navigate('/forgot-proccess', { replace: true, state: { email: group.value.email } });
+        println('System', value.message, EDebugType.SUCCESS);
+        navigate('/forgot-process', { replace: true, state: { email: group.value.email } });
+      },
+      error: () => {
+        println('System', 'Something went wrong when sending email', EDebugType.ERROR);
       },
       finally: () => {
-        group.markTouched(false);
         group.markSubmitted(false);
         setLoading(false);
       }
@@ -100,10 +92,11 @@ const ForgotPassword = () => {
   };
 
   return (
-    <AuthLayout disabled={loading()}>
+    <AuthLayout disabled={loading()} title='Lupa Password'>
       <span class="xl:text-xl font-semibold">
-        Please enter your email address below, and we will send you a link
-        to set a new password.
+        Silahkan masukkan alamat email anda,
+        <br />
+        tautan akan dikirimkan ke email anda
       </span>
       <div class="w-full flex flex-col items-stretch gap-3">
         <label class="input input-bordered min-w-full flex items-center gap-2">
@@ -116,48 +109,60 @@ const ForgotPassword = () => {
             <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
             <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
           </svg>
-          <input
-            type="email"
+          <TextInput
+            type='email'
+            name='email'
             disabled={loading()}
-            onInput={(e) => group.controls.email.setValue(e.currentTarget.value)}
-            class="grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0"
-            placeholder="Email"
+            placeholder='Email'
+            control={group.controls.email}
+            class='grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0'
           />
         </label>
-        <div class="flex items-center justify-between" >
-          <div class="form-control">
-            <image src={`https://dummyimage.com/300x100/000/fff.png&text=${imageCode()}`} alt="Captch Code" />
-          </div>
-        </div>
+        <TextError name='Email' control={group.controls.email} />
         <label class="input input-bordered min-w-full flex items-center gap-2">
-          <input
-            type="text"
+          <div class="card p-1">
+            <div class="flex items-center justify-center">
+              <span class="text-xl font-semibold">{imageCode()}</span>
+            </div>
+          </div>
+          <div class="divider sm:divider-horizontal" />
+          <TextInput
+            type='number'
+            name='captcha'
             disabled={loading()}
-            onInput={(e) => group.controls.captchaCode.setValue(e.currentTarget.value)}
-            class="grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0"
-            placeholder="Captcha Code"
+            placeholder='Kode Captcha'
+            control={group.controls.captchaCode}
+            class='grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0'
           />
         </label>
+        <TextError name='Kode Captcha' control={group.controls.captchaCode} />
         <div class="flex items-center justify-between" />
         <button
+          type='submit'
           disabled={loading()}
           onClick={handleValidation}
           class="btn btn-block btn-primary"
         >
-          {loading() ? <span class="loading loading-dots loading-lg"/> : <span>Submit</span>}
+          <Show when={!loading()}>
+            <span>Kirim</span>
+          </Show>
+
+          <Show when={loading()}>
+            <span class="loading loading-dots loading-lg" />
+          </Show>
         </button>
         <div class="divider text-sm" />
         <div class="w-full flex justify-center items-center gap-4">
           <button
+            type='button'
+            disabled={loading()}
             onClick={() => navigate('/login')}
             class="btn btn-block dark:btn-neutral"
           >
-            Back
+            Masuk
           </button>
         </div>
       </div>
     </AuthLayout>
   );
-};
-
-export default ForgotPassword;
+}
