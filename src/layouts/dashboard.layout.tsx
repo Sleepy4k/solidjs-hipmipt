@@ -1,22 +1,30 @@
-import { IAuthLayoutProp } from '@interfaces';
+import { Auth } from '@contexts';
+import { println } from '@utils';
+import { IAuth } from '@interfaces';
+import { APP_NAME } from '@consts';
+import { ApiService } from '@services';
 import NavBar from '@components/navbar';
 import Footer from '@components/footer';
-import { auth } from '@contexts';
-import { For, createEffect, createSignal } from 'solid-js';
-import { useNavigate } from '@solidjs/router';
-import { ApiService } from '@/services';
-import { EApiType, EDebugType } from '@/enums';
-import { println } from '@/utils';
 import MenuItem from '@components/menu.item';
+import { useNavigate } from '@solidjs/router';
+import { EApiType, EDebugType } from '@enums';
+import { For, createEffect, createSignal, onMount } from 'solid-js';
 
-const DashboardLayout = (props: IAuthLayoutProp) => {
-  const { isLogged } = auth.useAuth();
+export default function DashboardLayout(props: IAuth.IAuthLayoutProp) {
   const navigate = useNavigate();
+  const { isLogged } = Auth.useAuth();
   const [sidebarMenu, setSidebarMenu] = createSignal<Array<any>>([]);
 
-  createEffect(() => {
+  onMount(() => {
     if (!isLogged()) navigate('/', { replace: true });
-    else getSidebarMenuData();
+  });
+
+  createEffect(() => {
+    getSidebarMenuData();
+  });
+
+  createEffect(() => {
+    if (props.title) document.title = `${props.title} | ${APP_NAME}`;
   });
 
   const getSidebarMenuData = async () => {
@@ -25,14 +33,12 @@ const DashboardLayout = (props: IAuthLayoutProp) => {
       name: 'System',
       server: EApiType.MAIN,
       success: (res: any) => {
-        const value = res.data;
-
-        setSidebarMenu(value?.data);
+        setSidebarMenu(res.data.data);
       },
       error: () => {
         println('System', 'Something went wrong when get sidebar data', EDebugType.ERROR);
         navigate('/', { replace: true });
-      },
+      }
     });
   };
 
@@ -67,6 +73,4 @@ const DashboardLayout = (props: IAuthLayoutProp) => {
       <Footer />
     </div>
   );
-};
-
-export default DashboardLayout;
+}
