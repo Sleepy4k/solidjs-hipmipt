@@ -1,12 +1,11 @@
 import { useContext } from 'solid-js';
-import AuthContext from './auth.context';
+import ThemeContext from './context';
 
-const useAuth = () => {
-  const context = useContext(AuthContext);
+const useTheme = () => {
+  const context = useContext(ThemeContext);
   if (!context) throw new Error('Something went wrong when use theme context');
 
   return context;
 };
 
-export default useAuth;
-
+export default useTheme;

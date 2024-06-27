@@ -1,19 +1,19 @@
-import { EApiType, EAuthMiscStatus, EAuthUpdateCategory, EDebugType } from '@enums';
-import { deleteStorage, getStorage, println, setAndDeleteStorage } from '@utils';
-import { IProviderProp, IAuthUserData, IAuthMiscData } from '@interfaces';
-import { createSignal, createEffect, Component } from 'solid-js';
+import AuthContext from './context';
 import { ApiService } from '@services';
-import AuthContext from './auth.context';
 import { TAuthUpdateData } from '@types';
+import { IProviderProp, IAuth } from '@interfaces';
 import { useLocation, useNavigate } from '@solidjs/router';
+import { createSignal, createEffect, Component } from 'solid-js';
+import { deleteStorage, getStorage, println, setAndDeleteStorage } from '@utils';
 import { EMAIL_KEY_PREFIX, USERNAME_KEY_PREFIX, TOKEN_KEY_PREFIX } from '@consts';
+import { EApiType, EAuthMiscStatus, EAuthUpdateCategory, EDebugType } from '@enums';
 
 const AuthProvider: Component<IProviderProp> = (props: IProviderProp) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [checked, setChecked] = createSignal<boolean>(false);
-  const [user, setUser] = createSignal<IAuthUserData>(null);
-  const [misc, setMisc] = createSignal<IAuthMiscData>(null);
+  const [user, setUser] = createSignal<IAuth.IAuthUserData>(null);
+  const [misc, setMisc] = createSignal<IAuth.IAuthMiscData>(null);
   const [role, setRole] = createSignal<string>(null);
   const [isLogged, setIsLogged] = createSignal<boolean>(false);
   const [authToken, setAuthToken] = createSignal<string>(null);

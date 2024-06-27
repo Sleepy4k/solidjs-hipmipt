@@ -1,8 +1,8 @@
 import { EThemeType } from '@enums';
-import { getOrCreateStorage, setAndDeleteStorage } from '@utils';
-import ThemeContext from './theme.context';
+import ThemeContext from './context';
 import { IProviderProp } from '@interfaces';
 import { createSignal, createEffect, Component } from 'solid-js';
+import { getOrCreateStorage, setAndDeleteStorage } from '@utils';
 
 const ThemeProvider: Component<IProviderProp> = (props: IProviderProp) => {
   const [theme, setTheme] = createSignal<EThemeType>(EThemeType.LIGHT);
