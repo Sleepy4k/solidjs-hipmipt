@@ -1,12 +1,10 @@
 /* @refresh reload */
 import './index.css';
 
+import App from '@/app';
+import { routes } from './routes';
 import { render } from 'solid-js/web';
 import { Router } from '@solidjs/router';
-import App from '@/app';
-
-// Set Dynamic page title
-document.title = 'HIPMI PT ITTelkom';
 
 const root = document.getElementById('root');
 
@@ -17,10 +15,6 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 }
 
 render(
-  () => (
-    <Router>
-      <App />
-    </Router>
-  ),
+  () => <Router root={App}>{routes}</Router>,
   root,
 );

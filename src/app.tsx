@@ -1,21 +1,16 @@
-import type { Component } from 'solid-js';
-import { useRoutes } from '@solidjs/router';
-
 import { Toaster } from 'solid-toast';
-import { routes } from './routes';
-import { theme, auth } from '@contexts';
+import { Theme, Auth } from '@contexts';
+import type { Component, JSXElement } from 'solid-js';
 
-const App: Component = () => {
-  const Route = useRoutes(routes);
-
+const App: Component = (props: { children: JSXElement }) => {
   return (
     <>
       <Toaster />
-      <auth.AuthProvider>
-        <theme.ThemeProvider>
-          <Route />
-        </theme.ThemeProvider>
-      </auth.AuthProvider>
+      <Auth.AuthProvider>
+        <Theme.ThemeProvider>
+          {props.children}
+        </Theme.ThemeProvider>
+      </Auth.AuthProvider>
     </>
   );
 };
