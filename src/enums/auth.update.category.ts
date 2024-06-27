@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 enum EAuthUpdateCategory {
   USER = 'user',
   TOKEN = 'token',

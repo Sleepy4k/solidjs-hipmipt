@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 enum EAuthMiscStatus {
   VERIFIED = 1,
   UNVERIFIED = 0

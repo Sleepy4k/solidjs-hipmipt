@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 enum ESidebarIcon {
   HOME = 'home',
   SIDEBOX = 'sidebox',

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { MAIN_API_URL, EXPORT_API_URL, AUTH_API_URL } from '@consts';
 
 enum EApiType {
