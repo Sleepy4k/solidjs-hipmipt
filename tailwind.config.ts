@@ -1,8 +1,8 @@
-import type { Config } from 'tailwindcss';
 import daisyui from 'daisyui';
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./index.html', './src/assets/*.{png,jpg,jpeg,js,css}', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       animation: {
@@ -10,6 +10,9 @@ const config: Config = {
       },
       screens: {
         '3xl': '2200px',
+      },
+      colors: {
+        'custom-yellow': '#FFD700',
       },
     }
   },
