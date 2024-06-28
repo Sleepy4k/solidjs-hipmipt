@@ -4,7 +4,7 @@ export default function ChangeTheme() {
   const { themeFunc } = Theme.useTheme();
 
   return (
-    <div class="w-full">
+    <div class="w-full z-99">
       <label class="swap swap-rotate">
         <input
           type="checkbox"
