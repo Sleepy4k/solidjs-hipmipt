@@ -1,15 +1,15 @@
-import IThemeContext from './theme.context';
-import IProviderProp from './provider.prop';
+import * as IAuth from './auth';
+import * as IContext from './context';
 import IServiceProp from './service.prop';
+import IProviderProp from './provider.prop';
 import IListItemData from './list.item.data';
 import IMenuItemProp from './menu.item.prop';
-import * as IAuth from './auth';
 
 export {
-  IThemeContext,
+  IAuth,
+  IContext,
   IProviderProp,
   IServiceProp,
   IListItemData,
-  IMenuItemProp,
-  IAuth
+  IMenuItemProp
 };
