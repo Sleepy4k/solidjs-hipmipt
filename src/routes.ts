@@ -9,6 +9,34 @@ export const routes: RouteDefinition[] = [
     component: Home,
   },
   {
+    path: 'about',
+    component: lazy(() => import('@pages/landing/about/home')),
+  },
+  {
+    path: 'about/bpc',
+    component: lazy(() => import('@pages/landing/about/bpc')),
+  },
+  {
+    path: 'about/pt',
+    component: lazy(() => import('@pages/landing/about/pt')),
+  },
+  {
+    path: 'activity',
+    component: lazy(() => import('@pages/landing/activity')),
+  },
+  {
+    path: 'article',
+    component: lazy(() => import('@pages/landing/article')),
+  },
+  {
+    path: 'product',
+    component: lazy(() => import('@pages/landing/product')),
+  },
+  {
+    path: 'member',
+    component: lazy(() => import('@pages/landing/member')),
+  },
+  {
     path: 'login',
     component: lazy(() => import('@pages/auth/login')),
   },
