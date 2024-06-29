@@ -9,7 +9,7 @@ export default function NavBar() {
       <div class="absolute top-5 right-5">
         <ChangeTheme />
       </div>
-      <div class='navbar w-[75%]'>
+      <div class='navbar w-[85%]'>
         <div class="navbar-start">
           <A href='/' class="btn btn-ghost text-xl">
             <img loading="lazy" src={LOGOHIPMI} alt="Logo HIPMI PT ITTelkom" class='w-10 h-10' />
@@ -17,34 +17,34 @@ export default function NavBar() {
           </A>
         </div>
         <div class="navbar-center hidden lg:flex">
-          <ul class="menu menu-horizontal px-1 text-base gap-2">
+          <ul class="menu menu-horizontal px-1 lg:text-base gap-2">
             <li>
               <A href='/'>Home</A>
             </li>
             <li>
               <details>
-                <summary><A href='/tentang'>Tentang HIPMI</A></summary>
+                <summary><A href='/about'>Tentang HIPMI</A></summary>
                 <ul class="p-2">
                   <li>
-                    <A href='/tentang/bpc'>HIPMI BPC</A>
+                    <A href='/about/bpc'>HIPMI BPC</A>
                   </li>
                   <li>
-                    <A href='/tentang/pt'>HIPMI PT</A>
+                    <A href='/about/pt'>HIPMI PT</A>
                   </li>
                 </ul>
               </details>
             </li>
             <li>
-              <A href='/kegiatan'>Kegiatan</A>
+              <A href='/activity'>Kegiatan</A>
             </li>
             <li>
-              <A href='/artikel'>Artikel</A>
+              <A href='/article'>Artikel</A>
             </li> 
             <li>
-              <A href='/produk'>Produk</A>
+              <A href='/product'>Produk</A>
             </li>
             <li>
-              <A href='/anggota'>Anggota</A>
+              <A href='/member'>Anggota</A>
             </li>
           </ul>
         </div>
@@ -80,27 +80,30 @@ export default function NavBar() {
                 <A href='/'>Home</A>
               </li>
               <li>
-                <A href='/tentang'>Tentang HIPMI</A>
+                <A href='/about'>Tentang HIPMI</A>
                 <ul class="p-2">
                   <li>
-                    <A href='/tentang/bpc'>HIPMI BPC</A>
+                    <A href='/about/bpc'>HIPMI BPC</A>
                   </li>
                   <li>
-                    <A href='/tentang/pt'>HIPMI PT</A>
+                    <A href='/about/pt'>HIPMI PT</A>
                   </li>
                 </ul>
               </li>
               <li>
-                <A href='/kegiatan'>Kegiatan</A>
+                <A href='/activity'>Kegiatan</A>
               </li>
               <li>
-                <A href='/artikel'>Artikel</A>
+                <A href='/article'>Artikel</A>
               </li> 
               <li>
-                <A href='/produk'>Produk</A>
+                <A href='/product'>Produk</A>
               </li>
               <li>
-                <A href='/anggota'>Anggota</A>
+                <A href='/member'>Anggota</A>
+              </li>
+              <li>
+                <A href='/login'>Masuk</A>
               </li>
             </ul>
           </div>

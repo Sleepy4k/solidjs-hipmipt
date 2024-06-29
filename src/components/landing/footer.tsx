@@ -24,14 +24,14 @@ export default function Footer() {
           </a>
         </aside>
         <nav class='max-w-[15vw]'>
-          <h6 class="footer-title">Site Menu</h6>
-          <A href='/kegiatan' class="link link-hover">Kegiatan</A>
-          <A href='/artikel' class="link link-hover">Artikel</A>
-          <A href='/produk' class="link link-hover">Produk</A>
-          <A href='/anggota' class="link link-hover">Anggota</A>
+          <h6 class="footer-title font-extrabold">Site Menu</h6>
+          <A href='/activity' class="link link-hover">Kegiatan</A>
+          <A href='/article' class="link link-hover">Artikel</A>
+          <A href='/product' class="link link-hover">Produk</A>
+          <A href='/member' class="link link-hover">Anggota</A>
         </nav>
         <nav class='max-w-[15vw]'>
-          <h6 class="footer-title">Useful Website</h6>
+          <h6 class="footer-title font-extrabold">Useful Website</h6>
           <a href='https://ittelkom-pwt.ac.id' class="link link-hover">Institut Teknologi Telkom Purwokerto</a>
           <a href='https://www.hipmijateng.org' class="link link-hover">Beranda | HIPMI Badan Pengurus Daerah (BPD) Jawa Tengah</a>
         </nav>

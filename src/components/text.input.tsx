@@ -32,6 +32,13 @@ export function TextInput(_props: ITextInputProps) {
         onInput={(e) => {
           props.control.setValue(e.currentTarget.value);
         }}
+        onChange={(e) => {
+          // check if input not empty
+          if (e.currentTarget.value !== '')
+            props.control.markDirty(true);
+          else
+            props.control.markDirty(false);
+        }}
         onBlur={() => props.control.markTouched(true)}
         required={props.control.isRequired}
         disabled={props.disabled}
