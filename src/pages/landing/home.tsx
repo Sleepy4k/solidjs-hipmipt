@@ -8,6 +8,7 @@ import { For, Show, Suspense, createResource } from 'solid-js';
 interface INews {
   slug: string;
   title: string;
+  logo?: string;
   content: string;
   category: string[];
 }
@@ -40,7 +41,7 @@ export default function Home() {
   });
 
   return (
-    <LandingLayout title='Home'>
+    <LandingLayout>
       <div class="w-[85%] h-full px-4 xl:px-4 2xl:px-5 xl:py-2 overflow-clip">
         {/* Hero HIPMI PT */}
         <div class='min-h-[80vh]'>
@@ -78,6 +79,10 @@ export default function Home() {
                 <div class="flex justify-center items-center w-full h-[50vh]">
                   {/* Show if data was loading */}
                   <div class="loading loading-lg" />
+                  {/* Add loading text */}
+                  <p class="text-2xl ms-5">
+                    Memuat berita terbaru...
+                  </p>
                 </div>
               }
             >
@@ -96,7 +101,7 @@ export default function Home() {
                       <figure>
                         <img
                           loading='lazy'
-                          src={LOGOHIPMI}
+                          src={news?.logo || LOGOHIPMI}
                           alt="Logo Berita"
                           width={200}
                           height={200}
@@ -129,8 +134,8 @@ export default function Home() {
             <div class="flex hero-content justify-between gap-[20vw] flex-col lg:flex-row">
               <div>
                 <h1 class="text-lg font-bold mb-[5vh]">Tentang Kami</h1>
-                <h1 class="text-5xl font-extrabold">HIPMI PT ITTelkom Purwokerto</h1>
-                <p class="py-6 max-w-[35vw] mt-[4vh]">
+                <h1 class="lg:text-5xl text-3xl font-extrabold">HIPMI PT ITTelkom Purwokerto</h1>
+                <p class="py-6 max-w-[25vw] mt-[4vh]">
                   HIPMI PT ITTelkom Purwokerto didirikan pada tahun 2024 oleh mahasiswa/mahasiswi
                   yang memiliki minat dan bakat dalam bidang wirausaha. HIPMI PT ITTelkom Purwokerto
                   merupakan wadah bagi mahasiswa-mahasiswi yang bertujuan untuk mentoring dan sharing
@@ -138,18 +143,17 @@ export default function Home() {
                 </p>
                 <button
                   type='button'
-                  onClick={() => navigate('/tentang')}
+                  onClick={() => navigate('/about')}
                   class="btn bg-custom-yellow dark:text-neutral text-base mt-[4vh] font-bold"
                 >
                   Selengkapnya
                 </button>
               </div>
-              <div class='flex mt-[8vh] lg:h-[18vh] flex-col lg:flex-row'>
+              <div class='flex lg:mt-[8vh] lg:mb-1 mb-12 lg:h-[18vh] w-[30vw] lg:w-[30vw] flex-col lg:flex-row'>
                 <img
                   loading='lazy'
                   title='LOGO HIPMI PT ITTelkom'
                   src={LOGOHIPMI}
-                  width={180}
                   class="max-w-sm rounded-lg shadow-2xl bg-transparent"
                 />
                 <div class='divider divider-vertical lg:divider-horizontal' />
@@ -157,7 +161,6 @@ export default function Home() {
                   loading='lazy'
                   title='LOGO ITTelkom Purwokerto'
                   src={LOGOITTP}
-                  width={180}
                   class="max-w-sm rounded-lg shadow-2xl bg-transparent"
                 />
               </div>

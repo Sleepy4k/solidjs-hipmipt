@@ -1,11 +1,12 @@
+import swal from 'sweetalert';
 import { AuthLayout } from '@layouts';
 import { ApiService } from '@services';
 import { EApiType, EDebugType } from '@enums';
 import { formValidator, println } from '@utils';
 import { TextInput, TextError } from '@components/text.input';
 import { createFormGroup, createFormControl } from 'solid-forms';
-import { useLocation, useNavigate, useParams } from '@solidjs/router';
 import { createSignal, onMount, Switch, Match, Show } from 'solid-js';
+import { BeforeLeaveEventArgs, useBeforeLeave, useLocation, useNavigate, useParams } from '@solidjs/router';
 
 interface IRegisterLocation {
   otp: string;
@@ -124,6 +125,23 @@ export default function Register() {
       }
     });
   };
+
+  useBeforeLeave((e: BeforeLeaveEventArgs) => {
+    if (group.isDirty && !e.defaultPrevented) {
+      e.preventDefault();
+      setTimeout(() => {
+        swal({
+          title: 'Apakah Anda yakin?',
+          text: 'Anda akan kehilangan data yang telah diisi!',
+          icon: 'warning',
+          buttons: ['Tidak', 'Ya'],
+          dangerMode: true,
+        }).then((willLeave: boolean) => {
+          if (willLeave) e.retry(true);
+        });
+      }, 100);
+    }
+  });
 
   return (
     <AuthLayout disabled={loading()} title='Lupa Password'>
