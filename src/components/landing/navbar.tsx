@@ -1,7 +1,7 @@
 import { A } from '@solidjs/router';
+import LOGOITTP from '@images/ittp-logo.png';
+import LOGOHIPMI from '@images/hipmi-logo.png';
 import ChangeTheme from '@components/change.theme';
-import LOGOITTP from '@assets/images/ittp-logo.png';
-import LOGOHIPMI from '@assets/images/hipmi-logo.png';
 
 export default function NavBar() {
   return (
