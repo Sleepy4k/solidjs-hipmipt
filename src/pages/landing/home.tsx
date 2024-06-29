@@ -1,9 +1,44 @@
+import BGHERO from '@images/hero.jpg';
 import { LandingLayout } from '@layouts';
-import BGHERO from '@assets/images/hero.jpg';
-import LOGOITTP from '@assets/images/ittp-logo.png';
-import LOGOHIPMI from '@assets/images/hipmi-logo.png';
+import LOGOITTP from '@images/ittp-logo.png';
+import LOGOHIPMI from '@images/hipmi-logo.png';
+import { A, useNavigate } from '@solidjs/router';
+import { For, Show, Suspense, createResource } from 'solid-js';
+
+interface INews {
+  slug: string;
+  title: string;
+  content: string;
+  category: string[];
+}
 
 export default function Home() {
+  const navigate = useNavigate();
+
+  const [news] = createResource<INews[]>(async () => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return [
+      {
+        title: 'Magang MSIB Batch 2024 Telah Dimulai!',
+        slug: 'magang-msib-batch-2024-telah-dimulai',
+        category: ['Magang', 'Bisnis'],
+        content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum! Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non. Autem, aut iure placeat ab consectetur vitae praesentium?'
+      },
+      {
+        title: 'APERTI BUMN 2024: Lomba Produk Terbaik',
+        slug: 'aperti-bumn-2024-lomba-produk-terbaik',
+        category: ['Lomba', 'Produk'],
+        content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum! Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non. Autem, aut iure placeat ab consectetur vitae praesentium?'
+      },
+      {
+        title: 'Biasa: Bincang Asah Usaha',
+        slug: 'biasa-bincang-asah-usaha',
+        category: ['News', 'Self Improvement'],
+        content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum! Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non. Autem, aut iure placeat ab consectetur vitae praesentium?'
+      }
+    ];
+  });
+
   return (
     <LandingLayout title='Home'>
       <div class="w-[85%] h-full px-4 xl:px-4 2xl:px-5 xl:py-2 overflow-clip">
@@ -38,84 +73,53 @@ export default function Home() {
           <p class="mt-4 text-md">Apa saja yang terjadi pada bulan ini</p>
           {/* Card Section */}
           <div class="flex flex-wrap justify-center gap-10 mt-[5vh]">
-            <div class="card bg-base-100 w-96 shadow-xl">
-              <figure>
-                <img
-                  loading='lazy'
-                  src={LOGOHIPMI}
-                  alt="Logo Berita"
-                  width={200}
-                  height={200}
-                />
-              </figure>
-              <div class="card-body">
-                <div class="card-actions justify-start">
-                  <div class="badge badge-outline">MAGANG</div>
-                  <div class="badge badge-outline">BISNIS</div>
+            <Suspense
+              fallback={
+                <div class="flex justify-center items-center w-full h-[50vh]">
+                  {/* Show if data was loading */}
+                  <div class="loading loading-lg" />
                 </div>
-                <h2 class="card-title mt-3 font-extrabold text-start">
-                  Magang MSIB Batch 2024 Telah Dimulai!
-                </h2>
-                <p class='text-start'>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum!
-                  Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non.
-                  Autem, aut iure placeat ab consectetur vitae praesentium?
-                </p>
-              </div>
-            </div>
-            <div class="card bg-base-100 w-96 shadow-xl">
-              <figure>
-                <img
-                  loading='lazy'
-                  src={LOGOHIPMI}
-                  alt="Logo Berita"
-                  width={200}
-                  height={200}
-                />
-              </figure>
-              <div class="card-body">
-                <div class="card-actions justify-start">
-                  <div class="badge badge-outline">LOMBA</div>
-                  <div class="badge badge-outline">PRODUK</div>
+              }
+            >
+              <Show when={Array.isArray(news()) && news().length === 0}>
+                <div class="flex justify-center items-center w-full h-[50vh]">
+                  <p class="text-2xl">
+                    Belum ada berita terbaru
+                  </p>
                 </div>
-                <h2 class="card-title mt-3 font-extrabold text-start">
-                  APERTI BUMN 2024: Lomba Produk Terbaik
-                </h2>
-                <p class='text-start'>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum!
-                  Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non.
-                  Autem, aut iure placeat ab consectetur vitae praesentium?
-                </p>
-              </div>
-            </div>
-            <div class="card bg-base-100 w-96 shadow-xl">
-              <figure>
-                <img
-                  loading='lazy'
-                  src={LOGOHIPMI}
-                  alt="Logo Berita"
-                  width={200}
-                  height={200}
-                />
-              </figure>
-              <div class="card-body">
-                <div class="card-actions justify-start">
-                  <div class="badge badge-outline">NEWS</div>
-                  <div class="badge badge-outline">SELF IMPROVEMENT</div>
-                </div>
-                <h2 class="card-title mt-3 font-extrabold text-start">
-                  Biasa: Bincang Asah Usaha
-                </h2>
-                <p class='text-start'>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum!
-                  Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non.
-                  Autem, aut iure placeat ab consectetur vitae praesentium?
-                </p>
-              </div>
-            </div>
+              </Show>
+
+              <Show when={Array.isArray(news()) && news().length > 0}>
+                <For each={news()}>
+                  {(news, index) => (
+                    <A href={`/artikel/${news.slug}`} id={`data-${Math.floor(Math.random() * 4 + 1)}-berita-terkini-${index()}`} class="card bg-base-100 w-96 shadow-xl">
+                      <figure>
+                        <img
+                          loading='lazy'
+                          src={LOGOHIPMI}
+                          alt="Logo Berita"
+                          width={200}
+                          height={200}
+                        />
+                      </figure>
+                      <div class="card-body">
+                        <div class="card-actions justify-start">
+                          <For each={news.category}>
+                            {category => <div class="badge badge-outline">{category}</div>}
+                          </For>
+                        </div>
+                        <h2 class="card-title mt-3 font-extrabold text-start">
+                          {news.title}
+                        </h2>
+                        <p class='text-start text-sm'>
+                          {news.content}
+                        </p>
+                      </div>
+                    </A>
+                  )}
+                </For>
+              </Show>
+            </Suspense>
           </div>
         </div>
 
@@ -134,6 +138,7 @@ export default function Home() {
                 </p>
                 <button
                   type='button'
+                  onClick={() => navigate('/tentang')}
                   class="btn bg-custom-yellow dark:text-neutral text-base mt-[4vh] font-bold"
                 >
                   Selengkapnya
