@@ -1,6 +1,6 @@
 import { createContext } from 'solid-js';
-import { IThemeContext } from '@interfaces';
+import { IContext } from '@interfaces';
 
-const ThemeContext = createContext<IThemeContext>();
+const ThemeContext = createContext<IContext.IThemeContext>();
 
 export default ThemeContext;

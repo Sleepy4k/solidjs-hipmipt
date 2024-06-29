@@ -1,7 +1,9 @@
 import Auth from './auth';
+import Meta from './meta';
 import Theme from './theme';
 
 export {
-  Theme,
-  Auth
+  Auth,
+  Meta,
+  Theme
 };
