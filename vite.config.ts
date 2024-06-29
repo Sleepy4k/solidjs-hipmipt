@@ -24,6 +24,7 @@ export default defineConfig({
       '@pages': resolve(__dirname, './src/pages'),
       '@enums': resolve(__dirname, './src/enums'),
       '@types': resolve(__dirname, './src/types'),
+      '@images': resolve(__dirname, './src/assets/images'),
       '@interfaces': resolve(__dirname, './src/interaface'),
       '@contexts': resolve(__dirname, './src/contexts'),
       '@utils': resolve(__dirname, './src/utils'),
