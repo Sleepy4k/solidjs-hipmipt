@@ -46,10 +46,10 @@ export default function DashboardLayout(props: IAuth.IAuthLayoutProp) {
       class="w-full p-0 m-0 overflow-visible min-h-screen flex flex-col justify-between"
     >
       <div>
-        <NavBar disabled={props.disabled} sidebarData={sidebarMenu()} />
+        <NavBar disabled={/*@once*/ props.disabled} sidebarData={/*@once*/ sidebarMenu()} />
         <div class="w-full flex gap-0 pt-20 xl:pt-[96px] 2xl:pt-[112px] mb-auto">
           <Sidebar
-            disabled={props.disabled}
+            disabled={/*@once*/ props.disabled}
             data={sidebarMenu()}
           />
           <div class="w-full px-4 xl:px-4 2xl:px-5 xl:py-2 overflow-clip">

@@ -1,12 +1,9 @@
-import { IAuth } from '@interfaces';
 import { APP_NAME } from '@consts';
+import { IAuth } from '@interfaces';
 import { createEffect } from 'solid-js';
-// import { useNavigate } from '@solidjs/router';
 import { NavBar, Footer } from '@components/landing';
 
 export default function LandingLayout(props: IAuth.IAuthLayoutProp) {
-  // const navigate = useNavigate();
-
   createEffect(() => {
     if (props.title) document.title = `${props.title} | ${APP_NAME}`;
   });

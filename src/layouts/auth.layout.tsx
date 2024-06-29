@@ -22,7 +22,7 @@ export default function AuthLayout(props: IAuth.IAuthLayoutProp) {
             <button
               type='button'
               onClick={() => navigate('/')}
-              disabled={props.disabled ? props.disabled : false}
+              disabled={/*@once*/ props.disabled ? props.disabled : false}
               class="text-[18px] leading-[1.2] sm:text-lg xl:text-3xl 2xl:text-3xl font-semibold text-base-content dark:text-neutral-200"
             >
               {APP_NAME}
