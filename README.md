@@ -1,41 +1,79 @@
-## Usage
+# HIPMI PT ITTelkom Purwokerto
 
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
+HIPMI PT ITTelkom Purwokerto User Interface using SolidJS framework
 
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
+## Tech Stack  
 
-```bash
-$ npm install # or pnpm install or yarn install
-```
+**Client:** SolidJS, Axios, Sweetalert, Toaster, Form Validator
 
-## Exploring the template
+## Features  
 
-This template's goal is to showcase the routing features of Solid.
-It also showcase how the router and Suspense work together to parallelize data fetching tied to a route via the `.data.ts` pattern.
+- Authentication Page
+- Landing Page
+- User Dashboard
+- Admin Dashboard
 
-You can learn more about it on the [`@solidjs/router` repository](https://github.com/solidjs/solid-router)
+## Lessons Learned  
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+When i make this service, i feel like this project has good performance than the other like react and vue.
+After some update i learn something that i think i don't get it before, like i get better when search problem error,
+implement new system and form validation.
 
-## Available Scripts
+## Run Locally  
 
-In the project directory, you can run:
+Clone the project  
 
-### `npm run dev` or `npm start`
+~~~bash  
+  git clone https://github.com/Sleepy4k/solidjs-hipmipt.git
+~~~
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Go to the project directory  
 
-The page will reload if you make edits.<br>
+~~~bash  
+  cd solidjs-hipmipt
+~~~
 
-### `npm run build`
+Install dependencies
 
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
+~~~bash  
+  npm install
+~~~
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Copy .env file
 
-## Deployment
+~~~bash  
+  copy .env.example .env
+~~~
 
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+Start the server
+
+~~~bash  
+  npm start
+~~~
+
+## Environment Variables  
+
+To run this project, you will need to add the following environment variables to your .env file  
+
+`VITE_APP_ENV`
+`VITE_APP_NAME`
+`VITE_API_MAIN_SERVER_URL`
+`VITE_API_EXPORT_DATA_URL`
+`VITE_API_AUTH_SERVICE_URL`
+
+## Acknowledgements  
+
+- [Solidjs](https://www.solidjs.com/docs/latest/api)
+- [Axios](https://axios-http.com/docs/intro)
+- [Sweetalert](https://sweetalert.js.org/guides)
+- [Toaster](https://github.com/ardeora/solid-toast#readme)
+- [Form Validator](https://github.com/jorroll/solid-forms#readme)
+- [Select Input](https://solid-select.com)
+
+## Feedback  
+
+If you have any feedback, please reach out to us at <sarahpalastrin@gmail.com>
+
+## License  
+
+[MIT](https://github.com/Sleepy4k/solidjs-hipmipt/tree/main/LICENSE)
