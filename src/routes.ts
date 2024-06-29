@@ -1,71 +1,69 @@
 import { lazy } from 'solid-js';
 import type { RouteDefinition } from '@solidjs/router';
 
-import Home from '@pages/landing/home';
-
 export const routes: RouteDefinition[] = [
   {
     path: '/',
-    component: Home,
+    component: lazy(() => import('@pages/landing/home')),
   },
   {
-    path: 'about',
+    path: '/about',
     component: lazy(() => import('@pages/landing/about/home')),
   },
   {
-    path: 'about/bpc',
+    path: '/about/bpc',
     component: lazy(() => import('@pages/landing/about/bpc')),
   },
   {
-    path: 'about/pt',
+    path: '/about/pt',
     component: lazy(() => import('@pages/landing/about/pt')),
   },
   {
-    path: 'activity',
+    path: '/activity',
     component: lazy(() => import('@pages/landing/activity')),
   },
   {
-    path: 'article',
+    path: '/article',
     component: lazy(() => import('@pages/landing/article')),
   },
   {
-    path: 'product',
+    path: '/product',
     component: lazy(() => import('@pages/landing/product')),
   },
   {
-    path: 'member',
+    path: '/member',
     component: lazy(() => import('@pages/landing/member')),
   },
   {
-    path: 'login',
+    path: '/login',
     component: lazy(() => import('@pages/auth/login')),
   },
   {
-    path: 'register',
+    path: '/register',
     component: lazy(() => import('@pages/auth/register')),
   },
   {
-    path: 'forgot-password',
+    path: '/forgot-password',
     component: lazy(() => import('@pages/auth/forgot/password')),
   },
   {
-    path: 'forgot-process',
-    component: lazy(() => import('@pages/auth/forgot/process')),
-  },
-  {
-    path: 'forgot-password/verify/:id',
+    path: '/forgot-password/verify/:id',
     component: lazy(() => import('@pages/auth/forgot/verify')),
   },
   {
-    path: 'forgot-password/done',
+    path: '/forgot-password/done',
     component: lazy(() => import('@pages/auth/forgot/done')),
   },
   {
-    path: 'dashboard',
+    path: '/forgot-process',
+    component: lazy(() => import('@pages/auth/forgot/process')),
+  },
+  {
+    path: '/dashboard',
     component: lazy(() => import('@pages/dashboard/home')),
   },
   {
-    path: '**',
+    path: '/*all',
     component: lazy(() => import('@pages/errors/404')),
   },
 ];

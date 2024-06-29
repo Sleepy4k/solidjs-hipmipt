@@ -1,10 +1,7 @@
 /* @refresh reload */
 import './index.css';
-
 import App from '@/app';
-import { routes } from './routes';
 import { render } from 'solid-js/web';
-import { Router } from '@solidjs/router';
 
 const root = document.getElementById('root');
 
@@ -14,7 +11,4 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   );
 }
 
-render(
-  () => <Router root={App}>{routes}</Router>,
-  root,
-);
+render(() => <App />, root);
