@@ -1,11 +1,14 @@
-import { APP_NAME } from '@consts';
+import { Meta } from '@contexts';
 import { IAuth } from '@interfaces';
 import { createEffect } from 'solid-js';
 import { NavBar, Footer } from '@components/landing';
 
 export default function LandingLayout(props: IAuth.IAuthLayoutProp) {
+  const { changeTitle } = Meta.useMeta();
+
   createEffect(() => {
-    if (props.title) document.title = `${props.title} | ${APP_NAME}`;
+    if (props.title) changeTitle(props.title);
+    else changeTitle();
   });
 
   return (

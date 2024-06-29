@@ -1,7 +1,6 @@
-import { Auth } from '@contexts';
 import { println } from '@utils';
 import { IAuth } from '@interfaces';
-import { APP_NAME } from '@consts';
+import { Auth, Meta } from '@contexts';
 import { ApiService } from '@services';
 import { useNavigate } from '@solidjs/router';
 import { EApiType, EDebugType } from '@enums';
@@ -11,6 +10,7 @@ import { NavBar, Footer, Sidebar } from '@components/dashboard';
 export default function DashboardLayout(props: IAuth.IAuthLayoutProp) {
   const navigate = useNavigate();
   const { isLogged } = Auth.useAuth();
+  const { changeTitle } = Meta.useMeta();
   const [sidebarMenu, setSidebarMenu] = createSignal<Array<any>>([]);
 
   onMount(() => {
@@ -22,7 +22,8 @@ export default function DashboardLayout(props: IAuth.IAuthLayoutProp) {
   });
 
   createEffect(() => {
-    if (props.title) document.title = `${props.title} | ${APP_NAME}`;
+    if (props.title) changeTitle(props.title);
+    else changeTitle();
   });
 
   const getSidebarMenuData = async () => {
