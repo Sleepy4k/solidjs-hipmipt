@@ -3,7 +3,7 @@ import { ApiService } from '@services';
 import { TAuthUpdateData } from '@types';
 import { IProviderProp, IAuth } from '@interfaces';
 import { useLocation, useNavigate } from '@solidjs/router';
-import { createSignal, createEffect, Component, Suspense } from 'solid-js';
+import { createSignal, createEffect, Component } from 'solid-js';
 import { deleteStorage, getStorage, println, setAndDeleteStorage } from '@utils';
 import { EMAIL_KEY_PREFIX, USERNAME_KEY_PREFIX, TOKEN_KEY_PREFIX } from '@consts';
 import { EApiType, EAuthMiscStatus, EAuthUpdateCategory, EDebugType } from '@enums';
@@ -130,11 +130,9 @@ const AuthProvider: Component<IProviderProp> = (props: IProviderProp) => {
   };
 
   return (
-    <Suspense>
-      <AuthContext.Provider value={{ user, misc, role, isLogged, authToken, updateData, logoutUser }}>
-        {props.children}
-      </AuthContext.Provider>
-    </Suspense>
+    <AuthContext.Provider value={{ user, misc, role, isLogged, authToken, updateData, logoutUser }}>
+      {props.children}
+    </AuthContext.Provider>
   );
 };
 

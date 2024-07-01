@@ -1,8 +1,8 @@
 import { EThemeType } from '@enums';
 import ThemeContext from './context';
 import { IProviderProp } from '@interfaces';
+import { createSignal, createEffect, Component } from 'solid-js';
 import { getOrCreateStorage, setAndDeleteStorage } from '@utils';
-import { createSignal, createEffect, Component, Suspense } from 'solid-js';
 
 const ThemeProvider: Component<IProviderProp> = (props: IProviderProp) => {
   const [theme, setTheme] = createSignal<EThemeType>(EThemeType.LIGHT);
@@ -24,11 +24,9 @@ const ThemeProvider: Component<IProviderProp> = (props: IProviderProp) => {
   });
 
   return (
-    <Suspense>
-      <ThemeContext.Provider value={{ theme, themeFunc }}>
-        {props.children}
-      </ThemeContext.Provider>
-    </Suspense>
+    <ThemeContext.Provider value={{ theme, themeFunc }}>
+      {props.children}
+    </ThemeContext.Provider>
   );
 };
 
