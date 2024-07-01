@@ -12,6 +12,7 @@ const config: Config = {
         '3xl': '2200px',
       },
       colors: {
+        'black': '#000000',
         'custom-yellow': '#FFD700',
       },
     }
