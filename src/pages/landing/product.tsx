@@ -1,6 +1,6 @@
 import { LandingLayout } from '@layouts';
-import LOGOITTP from '@images/ittp-logo.png';
-import LOGOHIPMI from '@images/hipmi-logo.png';
+import LOGOITTP from '@images/logo/ittp.png';
+import LOGOHIPMI from '@images/logo/hipmi.png';
 
 export default function Product() {
   return (

@@ -1,8 +1,10 @@
+import { trimText } from '@utils';
 import BGHERO from '@images/hero.jpg';
 import { LandingLayout } from '@layouts';
-import LOGOITTP from '@images/ittp-logo.png';
-import LOGOHIPMI from '@images/hipmi-logo.png';
-import { A, useNavigate } from '@solidjs/router';
+import LOGOITTP from '@images/logo/ittp.png';
+import { useNavigate } from '@solidjs/router';
+import LOGOHIPMI from '@images/logo/hipmi.png';
+import { styled } from 'solid-styled-components';
 import { For, Show, Suspense, createResource } from 'solid-js';
 
 interface INews {
@@ -40,16 +42,21 @@ export default function Home() {
     ];
   });
 
+  // Buat styled component untuk nambahin css background image
+  // Karena SolidJS tidak support inline style (ada warning nya)
+  const StyledDiv = styled('div')`
+    background-image: url(${BGHERO});
+  `;
+
   return (
     <LandingLayout>
       <div class="w-[85%] h-full px-4 xl:px-4 2xl:px-5 xl:py-2 overflow-clip">
         {/* Hero HIPMI PT */}
         <div class='min-h-[80vh]'>
-          <div
+          <StyledDiv
             class="hero h-[65vh] bg-center bg-cover bg-no-repeat bg-opacity-50 rounded-3xl overflow-hidden"
-            style={{'background-image': `url(${BGHERO})`}}
           >
-            <div class="hero-overlay bg-opacity-75"/>
+            <div class="hero-overlay bg-opacity-85"/>
             <div class="hero-content text-neutral-content text-center">
               <div>
                 <h1 class="max-w-[50vw] mb-5 lg:text-6xl md:text-[5vw] text-[6vw] font-extrabold">
@@ -58,14 +65,15 @@ export default function Home() {
                   MUDA INDONESIA
                 </h1>
                 <div class="flex justify-center">
-                  <p class="max-w-[25vw] lg:text-base md:text-[2vw] text-[3vw]">
-                    <b>HIPMI PT</b> adalah wadah bagi mahasiswa-mahasiswi yang bertujuan
-                    untuk mentoring dan sharing seputar kegiatan wirausaha.
+                  <p class="max-w-[25vw] lg:text-base md:text-[2vw] text-[2.5vw]">
+                    <b>Himpunan Pengusaha Muda Indonesia</b> atau biasa dikenal dengan <b>HIPMI</b> merupakan sebuah organisasi independen
+                    yang merupakan kumpulan para pengusaha muda Indonesia yang bergerak dalam bidang perekoNomian.
+                    Organisasi ini merupakan sebuah organisasi non-partisan yang mulai didirikan pada tanggal 19 Juni 1972.
                   </p>
                 </div>
               </div>
             </div>
-          </div>
+          </StyledDiv>
         </div>
 
         {/* Berita Terknini */}
@@ -97,7 +105,10 @@ export default function Home() {
               <Show when={Array.isArray(news()) && news().length > 0}>
                 <For each={news()}>
                   {(news, index) => (
-                    <A href={`/artikel/${news.slug}`} id={`data-${Math.floor(Math.random() * 4 + 1)}-berita-terkini-${index()}`} class="card bg-base-100 w-96 shadow-xl">
+                    <div
+                      id={`data-${Math.floor(Math.random() * 4 + 1)}-berita-terkini-${index()}`}
+                      class="card bg-base-100 w-[18vw] shadow-xl"
+                    >
                       <figure>
                         <img
                           loading='lazy'
@@ -117,10 +128,19 @@ export default function Home() {
                           {news.title}
                         </h2>
                         <p class='text-start text-sm'>
-                          {news.content}
+                          {trimText(news.content, 200)}
                         </p>
+                        <div class="card-actions justify-end">
+                          <button
+                            type='button'
+                            onClick={() => navigate(`/artikel/${news.slug}`)}
+                            class="btn bg-custom-yellow dark:text-neutral text-base h-[2vh] mt-[3vh] font-bold"
+                          >
+                            Selengkapnya
+                          </button>
+                        </div>
                       </div>
-                    </A>
+                    </div>
                   )}
                 </For>
               </Show>

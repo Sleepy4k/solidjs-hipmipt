@@ -1,10 +1,10 @@
 import { LandingLayout } from '@layouts';
-import LOGOITTP from '@images/ittp-logo.png';
-import LOGOHIPMI from '@images/hipmi-logo.png';
+import LOGOITTP from '@images/logo/ittp.png';
+import LOGOHIPMI from '@images/logo/hipmi.png';
 
 export default function AboutBPC() {
   return (
-    <LandingLayout title='Tentang'>
+    <LandingLayout title='Tentang BPC'>
       <div class="w-[85%] h-full px-4 xl:px-4 2xl:px-5 xl:py-2 overflow-clip">
         <div class="flex flex-col gap-5">
           <div class="flex flex-col gap-2">
