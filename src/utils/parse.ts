@@ -34,7 +34,12 @@ const convertErrorResponseData = (error: any) => {
   return errorObject;
 };
 
+const trimText = (text: string, length: number) => {
+  return text.length > length ? `${text.substring(0, length)}...` : text;
+};
+
 export {
+  trimText,
   convertToTitleCase,
   convertStringToNumber,
   convertNumberToString,

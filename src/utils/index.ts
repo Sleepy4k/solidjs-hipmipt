@@ -1,7 +1,7 @@
 import { println } from './debug';
 import formValidator from './validator';
 import { getStorage, setStorage, deleteStorage, setAndDeleteStorage, getOrCreateStorage } from './local.storage';
-import { convertToTitleCase, convertErrorResponseData, convertStringToNumber, convertNumberToString } from './parse';
+import { trimText, convertToTitleCase, convertErrorResponseData, convertStringToNumber, convertNumberToString } from './parse';
 
 export {
   println,
@@ -10,6 +10,7 @@ export {
   setStorage,
   deleteStorage,
   getOrCreateStorage,
+  trimText,
   convertToTitleCase,
   setAndDeleteStorage,
   convertStringToNumber,
