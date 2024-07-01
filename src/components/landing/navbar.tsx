@@ -1,6 +1,6 @@
 import { A } from '@solidjs/router';
-import LOGOITTP from '@images/ittp-logo.png';
-import LOGOHIPMI from '@images/hipmi-logo.png';
+import LOGOITTP from '@images/logo/ittp.png';
+import LOGOHIPMI from '@images/logo/hipmi.png';
 import ChangeTheme from '@components/change.theme';
 
 export default function NavBar() {
@@ -19,7 +19,7 @@ export default function NavBar() {
         <div class="navbar-center hidden lg:flex">
           <ul class="menu menu-horizontal px-1 lg:text-base gap-2">
             <li>
-              <A href='/'>Home</A>
+              <A href='/' end>Home</A>
             </li>
             <li>
               <details>
@@ -77,7 +77,7 @@ export default function NavBar() {
               class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow gap-2"
             >
               <li>
-                <A href='/'>Home</A>
+                <A href='/' end>Home</A>
               </li>
               <li>
                 <A href='/about'>Tentang HIPMI</A>

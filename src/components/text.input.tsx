@@ -13,15 +13,19 @@ interface ITextInputProps extends ITextErrorProps {
   class?: string;
 }
 
-export function TextInput(_props: ITextInputProps) {
+const TextInput = (_props: ITextInputProps) => {
   const props = mergeProps({ control: createFormControl('') }, _props);
 
   return (
     <div
       classList={{
-        'is-invalid': !!props.control.errors,
+        'is-dirty': props.control.isDirty,
+        'is-valid': props.control.isValid,
+        'is-clean': !props.control.isDirty,
+        'is-invalid': !props.control.isValid,
         'is-touched': props.control.isTouched,
         'is-required': props.control.isRequired,
+        'is-untouched': !props.control.isTouched,
       }}
     >
       <input
@@ -31,8 +35,6 @@ export function TextInput(_props: ITextInputProps) {
         value={props.control.value}
         onInput={(e) => {
           props.control.setValue(e.currentTarget.value);
-        }}
-        onChange={(e) => {
           // check if input not empty
           if (e.currentTarget.value !== '')
             props.control.markDirty(true);
@@ -46,9 +48,9 @@ export function TextInput(_props: ITextInputProps) {
       />
     </div>
   );
-}
+};
 
-export function TextError(props: ITextErrorProps) {
+const TextError = (props: ITextErrorProps) => {
   return (
     <Show when={props.control.isTouched && !!props.control.errors}>
       <For each={Object.values(props.control.errors || {})}>
@@ -56,4 +58,6 @@ export function TextError(props: ITextErrorProps) {
       </For>
     </Show>
   );
-}
+};
+
+export { TextInput, TextError };
