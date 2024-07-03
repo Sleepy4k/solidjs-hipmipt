@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html style="scroll-behavior: smooth">
-  <head lang="en">
+<html lang="en">
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=7">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,11 +8,45 @@
     <meta name="author" content="HIPMI PT ITTelkom TI">
     <meta name="description" content="HIPMI PT ITTelkom Purwokerto">
     <meta name="keywords" content="hipmi, hipmi pt, ittelkom, ittp, telkom">
+    <link rel="stylesheet" href="./src/assets/style/main.css">
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <noscript>
+      <div class="error-container">
+        <div class="logo-container">
+          <img
+            src="./src/assets/images/logo/hipmi.png"
+            alt="HIPMI PT ITTelkom Logo"
+            class="hipmi-logo"
+          />
+        </div>
+        <div class="code-container">
+          <h1>412 Pre Condition Failed</h1>
+          <p>
+            Maaf, kamu tidak bisa mengakses laman ini karena javascript tidak
+            aktif untuk website "<i>hipmi.ittp.id</i>"
+          </p>
+        </div>
+        <div class="whats-container">
+          <h3>Apa yang terjadi?</h3>
+          <p>
+            Kode 412 menunjukkan bahwa anda tidak dapat mengakses laman ini
+            karena tidak dapat memenuhi kondisi yang diperlukan untuk mengakses
+            laman ini, yang mana kondisi tersebut adalah javascript harus aktif
+            sehingga laman ini dapat berjalan dengan baik
+          </p>
+        </div>
+        <hr class="divider-container" />
+        <div class="footer-container">
+          <p>
+            <b>Performance & Security by</b>
+            <span class="hipmi-teknologi-informasi">IT HIPMI PT ITTelkom</span>
+          </p>
+        </div>
+      </div>
+    </noscript>
 
+    <div id="root"></div>
     <script src="./src/index.tsx" type="module"></script>
   </body>
 </html>
