@@ -79,10 +79,10 @@ export default function About() {
           <div class="flex w-full justify-center mt-3 h-[1vh]">
             <div class="divider w-[60%] border-black bg-black h-1 dark:border-neutral dark:bg-neutral" />
           </div>
-          <div class="flex w-full justify-center mt-5 mb-2 h-[1vh]">
-            <span class='text-md font-base'>Pengusaha Penjuang, Pejuang Pengusaha</span>
+          <div class="flex w-full justify-center mt-5 mb-[1vh] xs:mb-[2vh] h-[1vh]">
+            <span class='lg:text-md text-sm lg:font-base font-sm'>Pengusaha Penjuang, Pejuang Pengusaha</span>
           </div>
-          <div class="flex w-full justify-center mb-2 h-[1vh]">
+          <div class="flex w-full justify-center mb-[2vh] h-[1vh]">
             <div class="divider w-[60%] border-black bg-black h-1 dark:border-neutral dark:bg-neutral" />
           </div>
 
@@ -126,7 +126,7 @@ export default function About() {
                           {(visi, index) => (
                             <div
                               id={`data-${Math.floor(Math.random() * 4 + 1)}-visi-${index()}`}
-                              class="card bg-base-100 w-[18vw] min-h-[45vh] shadow-xl"
+                              class="card bg-base-100 lg:w-[18vw] lg:min-h-[45vh] shadow-xl"
                             >
                               <figure class='mt-10'>
                                 <img
