@@ -1,8 +1,10 @@
-import swal from 'sweetalert';
 import { AuthLayout } from '@layouts';
 import { ApiService } from '@services';
+import { CSRFService } from '@services';
+import SafeForm from '@components/safe.form';
 import { EApiType, EDebugType } from '@enums';
-import { formValidator, println } from '@utils';
+import { SweetAlertResult } from 'sweetalert2';
+import { formValidator, println, alert } from '@utils';
 import { TextInput, TextError } from '@components/text.input';
 import { createFormGroup, createFormControl } from 'solid-forms';
 import { createSignal, onMount, Switch, Match, Show } from 'solid-js';
@@ -22,6 +24,7 @@ export default function Register() {
   const [isValid, setIsValid] = createSignal<boolean>(false);
   const [email, setEmail] = createSignal<string>('');
   const group = createFormGroup({
+    safe_form: createFormControl(false),
     new_password: createFormControl('', {
       required: true,
       validators: [formValidator.required, formValidator.minLength, formValidator.maxLength],
@@ -88,6 +91,13 @@ export default function Register() {
       return;
     }
 
+    if (!CSRFService.validateToken()) {
+      group.controls.safe_form.setErrors({ invalid: 'csrf token tidak valid' });
+      return;
+    } else {
+      group.controls.safe_form.setErrors(null);
+    }
+
     if (group.value.new_password !== group.value.new_password_confirmation) {
       group.controls.new_password_confirmation.setErrors({ notMatch: 'tidak cocok dengan password' });
       return;
@@ -127,133 +137,144 @@ export default function Register() {
   };
 
   useBeforeLeave((e: BeforeLeaveEventArgs) => {
-    if (group.isDirty && !e.defaultPrevented) {
+    if (group.isDirty && !e.defaultPrevented && !group.controls.safe_form.errors) {
       e.preventDefault();
       setTimeout(() => {
-        swal({
-          title: 'Apakah Anda yakin?',
-          text: 'Anda akan kehilangan data yang telah diisi!',
-          icon: 'warning',
-          buttons: ['Tidak', 'Ya'],
-          dangerMode: true,
-        }).then((willLeave: boolean) => {
-          if (willLeave) e.retry(true);
+        alert.fire({
+          title: 'Konfirmasi',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Ya',
+          cancelButtonText: 'Tidak',
+          html: `
+            <div class="flex justify-center items-center gap-4 mt-4">
+              <span>
+                Apakah anda yakin ingin meninggalkan halaman ini?
+                <br />
+                Semua data yang sudah di isi akan hilang!!
+              </span>
+            </div>
+          `
+        }).then((result: SweetAlertResult) => {
+          if (result.isConfirmed) e.retry(true);
         });
       }, 100);
     }
   });
 
   return (
-    <AuthLayout disabled={loading()} title='Lupa Password'>
-      <Switch fallback={
-        <span class="xl:text-xl font-semibold">
-          Mohon maaf, seprtinya terjadi kesalahan,
-          <div class='divider' />
-          silahkan coba beberapa saat lagi atau hubungi admin.
-        </span>
-      }>
-        <Match when={!isValid()}>
-          <>
-            <span class="xl:text-xl font-semibold text-center">
-              Kami mohon maaf, link yang kami sediakan tidak valid,
-              <div class='divider' />
-              mohon kirimkan permintaan link baru untuk
-              memproses permintaan perubahan password anda.
-            </span>
-            <div class="flex items-center justify-between" />
-            <button
-              type="button"
-              disabled={loading()}
-              onClick={() => navigate('/login', { replace: true })}
-              class="btn btn-block btn-primary"
-            >
-              Back
-            </button>
-          </>
-        </Match>
-        <Match when={isValid()}>
-          <>
-            <span class="xl:text-xl font-semibold">
-              Please enter your new password below, and we will change
-              your current password with new password.
-            </span>
-            <div class="w-full flex flex-col items-stretch gap-3">
-              <label class="input input-bordered flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  class="w-4 h-4 opacity-70"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                <TextInput
-                  type='password'
-                  name='new_password'
-                  disabled={loading()}
-                  placeholder='Password Baru'
-                  control={group.controls.new_password}
-                  class='grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0'
-                />
-              </label>
-              <TextError name='Password Baru' control={group.controls.new_password} />
-              <label class="input input-bordered flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  class="w-4 h-4 opacity-70"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                <TextInput
-                  type='password'
-                  name='new_password_confirmation'
-                  disabled={loading()}
-                  placeholder='Konfirmasi Password Baru'
-                  control={group.controls.new_password_confirmation}
-                  class='grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0'
-                />
-              </label>
-              <TextError name='Konfirmasi Password Baru' control={group.controls.new_password_confirmation} />
+    <SafeForm regenerate={!!group.controls.safe_form.errors}>
+      <AuthLayout disabled={loading()} title='Lupa Password'>
+        <Switch fallback={
+          <span class="xl:text-xl font-semibold">
+            Mohon maaf, seprtinya terjadi kesalahan,
+            <div class='divider' />
+            silahkan coba beberapa saat lagi atau hubungi admin.
+          </span>
+        }>
+          <Match when={!isValid()}>
+            <>
+              <span class="xl:text-xl font-semibold text-center">
+                Kami mohon maaf, link yang kami sediakan tidak valid,
+                <div class='divider' />
+                mohon kirimkan permintaan link baru untuk
+                memproses permintaan perubahan password anda.
+              </span>
               <div class="flex items-center justify-between" />
               <button
-                type='submit'
+                type="button"
                 disabled={loading()}
-                onClick={handleValidation}
+                onClick={() => navigate('/login', { replace: true })}
                 class="btn btn-block btn-primary"
               >
-                <Show when={!loading()}>
-                  <span>Submit</span>
-                </Show>
-      
-                <Show when={loading()}>
-                  <span class="loading loading-dots loading-lg" />
-                </Show>
+                Back
               </button>
-              <div class="divider text-sm" />
-              <div class="w-full flex justify-center items-center gap-4">
+            </>
+          </Match>
+          <Match when={isValid()}>
+            <>
+              <span class="xl:text-xl font-semibold">
+                Please enter your new password below, and we will change
+                your current password with new password.
+              </span>
+              <div class="w-full flex flex-col items-stretch gap-3">
+                <label class="input input-bordered flex items-center gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    class="w-4 h-4 opacity-70"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <TextInput
+                    type='password'
+                    name='new_password'
+                    disabled={loading()}
+                    placeholder='Password Baru'
+                    control={group.controls.new_password}
+                    class='grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0'
+                  />
+                </label>
+                <TextError name='Password Baru' control={group.controls.new_password} />
+                <label class="input input-bordered flex items-center gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    class="w-4 h-4 opacity-70"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <TextInput
+                    type='password'
+                    name='new_password_confirmation'
+                    disabled={loading()}
+                    placeholder='Konfirmasi Password Baru'
+                    control={group.controls.new_password_confirmation}
+                    class='grow input outline-none focus:outline-none border-none border-[0px] h-auto pl-1 pr-0'
+                  />
+                </label>
+                <TextError name='Konfirmasi Password Baru' control={group.controls.new_password_confirmation} />
+                <div class="flex items-center justify-between" />
                 <button
-                  type='button'
+                  type='submit'
                   disabled={loading()}
-                  onClick={() => navigate('/')}
-                  class="btn btn-block dark:btn-neutral"
+                  onClick={handleValidation}
+                  class="btn btn-block btn-primary"
                 >
-                  Home
+                  <Show when={!loading()}>
+                    <span>Submit</span>
+                  </Show>
+        
+                  <Show when={loading()}>
+                    <span class="loading loading-dots loading-lg" />
+                  </Show>
                 </button>
+                <div class="divider text-sm" />
+                <div class="w-full flex justify-center items-center gap-4">
+                  <button
+                    type='button'
+                    disabled={loading()}
+                    onClick={() => navigate('/')}
+                    class="btn btn-block dark:btn-neutral"
+                  >
+                    Home
+                  </button>
+                </div>
               </div>
-            </div>
-          </>
-        </Match>
-      </Switch>
-    </AuthLayout >
+            </>
+          </Match>
+        </Switch>
+      </AuthLayout>
+    </SafeForm>
   );
 }
