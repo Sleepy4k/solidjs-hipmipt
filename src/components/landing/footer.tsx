@@ -5,11 +5,11 @@ import LOGOHIPMI from '@images/logo/hipmi.png';
 export default function Footer() {
   return (
     <div class='bg-base-200'>
-      <footer class="footer text-base-content p-10 w-[75%] ms-[20vw]">
-        <aside class='max-w-[15vw]'>
-          <div class='flex justify-center gap-5'>
-            <img loading="lazy" src={LOGOHIPMI} alt="Logo HIPMI PT ITTelkom" class='w-10 h-10' />
-            <img loading="lazy" src={LOGOITTP} alt="Logo HIPMI PT ITTelkom" class='w-10 h-10' />
+      <footer class="footer text-base-content p-10 w-[75%] lg:ms-[20vw] ms-[10vw]">
+        <aside class='lg:max-w-[15vw]'>
+          <div class='flex justify-center lg:gap-3 gap-2.5'>
+            <img loading="lazy" src={LOGOHIPMI} alt="Logo HIPMI PT ITTelkom" class='lg:w-[2.5rem] w-9 lg:h-[2.5rem] h-9' />
+            <img loading="lazy" src={LOGOITTP} alt="Logo ITTelkom Purwokerto" class='lg:w-[2.5rem] w-8 lg:h-[2.5rem] h-8' />
           </div>
           <p class='text-start mt-5 font-extrabold'>
             Connect with us
@@ -23,14 +23,14 @@ export default function Footer() {
             </span>
           </a>
         </aside>
-        <nav class='max-w-[15vw]'>
+        <nav class='lg:max-w-[15vw]'>
           <h6 class="footer-title font-extrabold">Site Menu</h6>
           <A href='/activity' class="link link-hover">Kegiatan</A>
           <A href='/article' class="link link-hover">Artikel</A>
           <A href='/product' class="link link-hover">Produk</A>
           <A href='/member' class="link link-hover">Anggota</A>
         </nav>
-        <nav class='max-w-[15vw]'>
+        <nav class='lg:max-w-[15vw]'>
           <h6 class="footer-title font-extrabold">Useful Website</h6>
           <a href='https://ittelkom-pwt.ac.id' class="link link-hover">Institut Teknologi Telkom Purwokerto</a>
           <a href='https://www.hipmijateng.org' class="link link-hover">Beranda | HIPMI Badan Pengurus Daerah (BPD) Jawa Tengah</a>
@@ -38,7 +38,7 @@ export default function Footer() {
         <nav/>
       </footer>
       <footer class="footer text-base-content border-base-300 border-t px-10 py-4 flex justify-center">
-        <p>Copyright © HIPMI PT ITTelkom Purwokerto 2024 | Teknologi Informasi</p>
+        <p class='ms-[4vw] lg:ms-0'>Copyright © HIPMI PT ITTelkom Purwokerto 2024 | Teknologi Informasi</p>
       </footer>
     </div>
   );

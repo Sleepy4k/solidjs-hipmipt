@@ -1,12 +1,12 @@
-import swal from 'sweetalert';
 import { Auth } from '@contexts';
-import { println } from '@utils';
 import MenuItem from './menu.item';
 import { APP_NAME } from '@consts';
 import { A } from '@solidjs/router';
 import { ApiService } from '@services';
+import { println, alert } from '@utils';
 import ChangeTheme from '../change.theme';
 import { EApiType, EDebugType } from '@enums';
+import { SweetAlertResult } from 'sweetalert2';
 import { HiSolidBars3CenterLeft } from 'solid-icons/hi';
 import { For, createEffect, createSignal, Show } from 'solid-js';
 import { RiMediaFullscreenFill, RiMediaFullscreenExitFill } from 'solid-icons/ri';
@@ -30,14 +30,19 @@ export default function NavBar(props: INavBarProps) {
   });
 
   const confirmLogout = () => {
-    swal({
-      title: 'Are you sure?',
-      text: 'You will be logged out!',
+    alert.fire({
+      title: 'Konfirmasi',
       icon: 'warning',
-      buttons: ['Cancel', 'Logout'],
-      dangerMode: true,
-    }).then((willLogout) => {
-      if (willLogout) handleLogout();
+      showCancelButton: true,
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak',
+      html: `
+        <div class="flex justify-center items-center gap-4 mt-4">
+          <span>Apakah anda yakin ingin melakukan logout?</span>
+        </div>
+      `
+    }).then((result: SweetAlertResult) => {
+      if (result.isConfirmed) handleLogout();
     });
   };
 

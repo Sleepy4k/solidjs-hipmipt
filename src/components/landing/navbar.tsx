@@ -9,15 +9,15 @@ export default function NavBar() {
       <div class="absolute top-5 right-5">
         <ChangeTheme />
       </div>
-      <div class='navbar w-[85%]'>
+      <div class='navbar w-[85vw]'>
         <div class="navbar-start">
-          <A href='/' class="btn btn-ghost text-xl">
-            <img loading="lazy" src={LOGOHIPMI} alt="Logo HIPMI PT ITTelkom" class='w-10 h-10' />
-            <img loading="lazy" src={LOGOITTP} alt="Logo HIPMI PT ITTelkom" class='w-10 h-10' />
+          <A href='/' class="btn btn-ghost">
+            <img loading="lazy" src={LOGOHIPMI} alt="Logo HIPMI PT ITTelkom" class='lg:w-[2.5rem] w-9 lg:h-[2.5rem] h-9' />
+            <img loading="lazy" src={LOGOITTP} alt="Logo ITTelkom Purwokerto" class='lg:w-[2.5rem] w-8 lg:h-[2.5rem] h-8' />
           </A>
         </div>
         <div class="navbar-center hidden lg:flex">
-          <ul class="menu menu-horizontal px-1 lg:text-base gap-2">
+          <ul class="menu menu-horizontal px-1 lg:text-md gap-2">
             <li>
               <A href='/' end>Home</A>
             </li>
@@ -49,15 +49,15 @@ export default function NavBar() {
           </ul>
         </div>
         <div class="navbar-end">
-          <div class="hidden lg:block relative rounded-2xl overflow-hidden h-[5vh] w-[10vh]">
-            <A href='/login' class="btn btn-block bg-custom-yellow dark:text-neutral text-base">Masuk</A>
+          <div class="hidden lg:block relative rounded-2xl overflow-hidden h-[3rem] w-[5rem]">
+            <A href='/login' class="btn btn-block bg-custom-yellow dark:text-neutral lg:text-md">Masuk</A>
           </div>
           <div class="dropdown dropdown-end">
             <div
               title="Menu"
               tabindex="0"
               role="button"
-              class="btn btn-ghost lg:hidden"
+              class="btn btn-ghost lg:hidden me-[1.5rem]"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
