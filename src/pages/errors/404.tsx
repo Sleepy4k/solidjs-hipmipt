@@ -1,10 +1,8 @@
-import { Show } from 'solid-js';
-import { APP_ENV } from '@consts';
-import { useLocation, useNavigate } from '@solidjs/router';
+import { useNavigate } from '@solidjs/router';
+import HTTPDebug from '@components/http.debug';
 
 export default function NotFound() {
   const navigate = useNavigate();
-  const location = useLocation();
 
   return (
     <div class="w-screen h-screen">
@@ -17,21 +15,13 @@ export default function NotFound() {
 
           <div class="flex flex-col items-center gap-2">
             <p class="text-lg text-center">
-              Halaman yang Anda cari mungkin telah dihapus,
+              Halaman yang anda cari mungkin telah dihapus,
               <br />
               nama telah diubah, atau sementara tidak tersedia.
             </p>
           </div>
 
-          <Show when={APP_ENV === 'development'}>
-            <div class="flex flex-col items-center gap-2 outline outline-offset-2 outline-cyan-500">
-              <h1 class="font-bold text-3xl">
-                {`Path = ${location.pathname}`}
-                <br />
-                Method = GET
-              </h1>
-            </div>
-          </Show>
+          <HTTPDebug />
 
           <div class="flex flex-col items-center gap-2">
             <button
