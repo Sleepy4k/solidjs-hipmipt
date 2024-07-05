@@ -43,7 +43,7 @@ export default function About() {
         <div class="min-h-[55vh] flex mb-12">
           <div class='hero'>
             <div class="flex hero-content justify-between gap-[20vw] flex-col lg:flex-row">
-              <div>
+              <div data-aos='fade-up'>
                 <h1 class="text-lg font-bold mb-[5vh]">Tentang Kami</h1>
                 <h1 class="lg:text-5xl text-3xl font-extrabold">HIPMI PT ITTelkom Purwokerto</h1>
                 <p class="py-6 max-w-[25vw] mt-[4vh]">
@@ -53,7 +53,7 @@ export default function About() {
                   seputar kegiatan wirausaha.
                 </p>
               </div>
-              <div class='flex lg:mt-[8vh] lg:mb-1 mb-12 lg:h-[18vh] w-[30vw] lg:w-[30vw] flex-col lg:flex-row'>
+              <div class='flex lg:mt-[8vh] lg:mb-1 mb-12 lg:h-[18vh] w-[30vw] lg:w-[30vw] flex-col lg:flex-row' data-aos='fade-left'>
                 <img
                   loading='lazy'
                   title='LOGO HIPMI PT ITTelkom'
@@ -75,15 +75,17 @@ export default function About() {
         {/* Berita Terknini */}
         <div class="text-center mb-12">
           {/* Slogan Section */}
-          <h1 class="text-3xl font-extrabold">Slogan</h1>
-          <div class="flex w-full justify-center mt-3 h-[1vh]">
-            <div class="divider w-[60%] border-black bg-black h-1 dark:border-neutral dark:bg-neutral" />
-          </div>
-          <div class="flex w-full justify-center mt-5 mb-[1vh] xs:mb-[2vh] h-[1vh]">
-            <span class='lg:text-md text-sm lg:font-base font-sm'>Pengusaha Penjuang, Pejuang Pengusaha</span>
-          </div>
-          <div class="flex w-full justify-center mb-[2vh] h-[1vh]">
-            <div class="divider w-[60%] border-black bg-black h-1 dark:border-neutral dark:bg-neutral" />
+          <div>
+            <h1 class="text-3xl font-extrabold" data-aos="zoom-in-up">Slogan</h1>
+            <div class="flex w-full justify-center mt-3 h-[1vh]" data-aos='fade-up'>
+              <div class="divider w-[60%] border-black bg-black h-1 dark:border-neutral dark:bg-neutral" />
+            </div>
+            <div class="flex w-full justify-center mt-5 mb-[1vh] xs:mb-[2vh] h-[1vh]">
+              <span class='lg:text-md text-sm lg:font-base font-sm' data-aos="zoom-out-up">Pengusaha Penjuang, Pejuang Pengusaha</span>
+            </div>
+            <div class="flex w-full justify-center mb-[2vh] h-[1vh]" data-aos='fade-up'>
+              <div class="divider w-[60%] border-black bg-black h-1 dark:border-neutral dark:bg-neutral" />
+            </div>
           </div>
 
           {/* Visi Misi Section */}
