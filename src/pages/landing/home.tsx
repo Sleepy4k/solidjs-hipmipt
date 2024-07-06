@@ -52,7 +52,7 @@ export default function Home() {
   // Karena SolidJS tidak support inline style (add warning nya)
   const StyledIframe = styled('iframe')`
     border: solid 1px #777;
-    width: 100%;
+    width: 85%;
     height: 65vh;
   `;
 
@@ -64,7 +64,7 @@ export default function Home() {
           <StyledDiv
             class="hero lg:h-[65vh] h-[20rem] bg-center bg-cover bg-no-repeat bg-opacity-50 rounded-3xl overflow-hidden"
           >
-            <div class="hero-overlay bg-opacity-85"/>
+            <div class="hero-overlay bg-opacity-80"/>
             <div class="hero-content text-neutral-content text-center">
               <div>
                 <h1 class="lg:max-w-[50vw] mb-5 lg:text-6xl md:text-[5vw] text-[6vw] font-extrabold">
@@ -75,7 +75,7 @@ export default function Home() {
                 <div class="flex justify-center">
                   <p class="lg:max-w-[25vw] lg:text-base md:text-[2vw] text-[2.5vw]">
                     <b>Himpunan Pengusaha Muda Indonesia</b> atau biasa dikenal dengan <b>HIPMI</b> merupakan sebuah organisasi independen
-                    yang merupakan kumpulan para pengusaha muda Indonesia yang bergerak dalam bidang perekoNomian.
+                    yang merupakan kumpulan para pengusaha muda Indonesia yang bergerak dalam bidang perekonomian.
                     Organisasi ini merupakan sebuah organisasi non-partisan yang mulai didirikan pada tanggal 19 Juni 1972.
                   </p>
                 </div>
@@ -161,13 +161,17 @@ export default function Home() {
         </div>
 
         {/* Hero Tentang HIPMI */}
-        <div class="mt-12 lg:mt-2 min-h-[80vh] flex">
+        <div class="mt-12 lg:mt-[15vh] min-h-[80vh] flex">
           <div class='hero'>
-            <div class="flex hero-content justify-between gap-[20vw] flex-col lg:flex-row">
+            <div class="flex hero-content justify-between lg:gap-[8vw] gap-[25vw] flex-col lg:flex-row">
               <div data-aos='fade-up'>
                 <h1 class="text-lg font-bold mb-[5vh]">Tentang Kami</h1>
-                <h1 class="lg:text-5xl text-3xl font-extrabold">HIPMI PT ITTelkom Purwokerto</h1>
-                <p class="py-6 lg:max-w-[35vw] mt-[4vh]">
+                <h1 class="lg:text-5xl text-3xl font-extrabold">
+                  Kabinet
+                  <br />
+                  Danartapura
+                </h1>
+                <p class="py-6 lg:w-[32vw] mt-[4vh]">
                   HIPMI PT ITTelkom Purwokerto didirikan pada tahun 2024 oleh mahasiswa/mahasiswi
                   yang memiliki minat dan bakat dalam bidang wirausaha. HIPMI PT ITTelkom Purwokerto
                   merupakan wadah bagi mahasiswa-mahasiswi yang bertujuan untuk mentoring dan sharing
@@ -181,7 +185,7 @@ export default function Home() {
                   Selengkapnya
                 </button>
               </div>
-              <div class='flex lg:mt-[8vh] lg:mb-1 mb-12 lg:h-[18vh] w-[10rem] lg:w-[30vw] lg:me-[10vw] flex-col lg:flex-row' data-aos='fade-left'>
+              <div class='flex lg:mt-[8vh] lg:mb-1 mb-[12vh] lg:h-[18vh] w-[10rem] lg:w-[30vw] lg:me-[10vw] flex-col lg:flex-row' data-aos='fade-left'>
                 <img
                   loading='lazy'
                   title='LOGO HIPMI PT ITTelkom'
@@ -201,8 +205,8 @@ export default function Home() {
         </div>
 
         {/* Calender Section */}
-        <div class="text-center">
-          <h1 class="text-4xl font-extrabold" data-aos="fade-up">Kalender HIPMI PT ITTelkom</h1>
+        <div class="mt-10 lg:mt-[12vh] text-center">
+          <h1 class="lg:text-4xl text-2xl font-extrabold" data-aos="fade-up">Kalender HIPMI PT ITTelkom</h1>
           {/* Card Section */}
           <div class="flex flex-wrap justify-center gap-10 mt-[5vh] mb-[12vh]">
             <Suspense

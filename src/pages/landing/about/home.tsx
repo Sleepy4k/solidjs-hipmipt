@@ -14,24 +14,28 @@ export default function About() {
     await new Promise(resolve => setTimeout(resolve, 1000));
     return [
       {
-        title: 'Meningkatkan Kreativitas',
-        content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum! Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non. Autem, aut iure placeat ab consectetur vitae praesentium?'
+        title: 'Penguatan Jejaring dan Networking',
+        content: 'Membangun ikatan kokoh antar-anggota HIPMI Perguruan Tinggi melalui kegiatan kolaboratif. Mendorong pertukaran pengalaman dan pengetahuan untuk nilai tambah dalam karir dan bisnis.'
       },
       {
-        title: 'Meningkatkan Kreativitas',
-        content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum! Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non. Autem, aut iure placeat ab consectetur vitae praesentium?'
+        title: 'Fasilitas Mentoring',
+        content: 'Implementasi program mentoring dari HIPMI Cabang Daerah dan Pusat. Memberikan panduan berharga melalui mentor-mentor berpengalaman untuk mengatasi tantangan bisnis.'
       },
       {
-        title: 'Meningkatkan Kreativitas',
-        content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum! Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non. Autem, aut iure placeat ab consectetur vitae praesentium?'
+        title: 'Kemudahan Akses Modal',
+        content: 'Fokus pada kemudahan akses modal bagi anggota yang memulai atau menghadapi kendala keuangan. Kemitraan strategis dengan lembaga keuangan untuk menyediakan pendanaan terjangkau. Pembentukan tim khusus untuk membantu menyusun proposal bisnis yang kuat.'
       },
       {
-        title: 'Meningkatkan Kreativitas',
-        content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum! Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non. Autem, aut iure placeat ab consectetur vitae praesentium?'
+        title: 'Ekosistem Wirausaha Mahasiswa',
+        content: 'Menciptakan ekosistem yang mendukung mahasiswa dalam memulai dan mengakselerasi bisnis. Memaksimalkan potensi dan akselesari usaha mahasiswa/mahasiswi.'
       },
       {
-        title: 'Meningkatkan Kreativitas',
-        content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum! Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non. Autem, aut iure placeat ab consectetur vitae praesentium?'
+        title: 'Sebagai Wadah Kolaborasi',
+        content: 'HIPMI PT Institut Teknologi Telkom Purwokerto sebagai wadah kolaborasi dan akselerasi usaha mahasiswa/mahasiswi. Mengutamakan nilai kekeluargaan, moral, integritas, dan profesionalisme.'
+      },
+      {
+        title: 'Hubungan dan Kerjasama',
+        content: 'Menjalin hubungan yang baik dalam relasi internal dan eksternal. Mendorong kolaborasi dan akselerasi demi kemajuan bersama.'
       }
     ];
   });
@@ -42,18 +46,22 @@ export default function About() {
         {/* Hero Tentang HIPMI */}
         <div class="min-h-[55vh] flex mb-12">
           <div class='hero'>
-            <div class="flex hero-content justify-between gap-[20vw] flex-col lg:flex-row">
+            <div class="flex hero-content justify-between lg:gap-[8vw] gap-[25vw] flex-col lg:flex-row">
               <div data-aos='fade-up'>
                 <h1 class="text-lg font-bold mb-[5vh]">Tentang Kami</h1>
-                <h1 class="lg:text-5xl text-3xl font-extrabold">HIPMI PT ITTelkom Purwokerto</h1>
-                <p class="py-6 max-w-[25vw] mt-[4vh]">
+                <h1 class="lg:text-5xl text-3xl font-extrabold">
+                  Kabinet
+                  <br />
+                  Danartapura
+                </h1>
+                <p class="py-6 lg:w-[32vw] mt-[4vh]">
                   HIPMI PT ITTelkom Purwokerto didirikan pada tahun 2024 oleh mahasiswa/mahasiswi
                   yang memiliki minat dan bakat dalam bidang wirausaha. HIPMI PT ITTelkom Purwokerto
                   merupakan wadah bagi mahasiswa-mahasiswi yang bertujuan untuk mentoring dan sharing
                   seputar kegiatan wirausaha.
                 </p>
               </div>
-              <div class='flex lg:mt-[8vh] lg:mb-1 mb-12 lg:h-[18vh] w-[30vw] lg:w-[30vw] flex-col lg:flex-row' data-aos='fade-left'>
+              <div class='flex lg:mt-[8vh] lg:mb-1 mb-[12vh] lg:h-[18vh] w-[10rem] lg:w-[30vw] lg:me-[10vw] flex-col lg:flex-row' data-aos='fade-left'>
                 <img
                   loading='lazy'
                   title='LOGO HIPMI PT ITTelkom'
@@ -93,9 +101,20 @@ export default function About() {
             <div class="flex flex-col gap-2 mt-[5vh]">
               <h1 class="text-3xl font-extrabold">Misi dan Visi</h1>
               {/* Misi Section */}
-              <p class="text-center">
-                Menjadi wadah aspirasi dan pengembangan kewirausahaan bagi mahasiswa ITTelkom.
-              </p>
+              <div class="flex w-full justify-center mb-2 mt-4">
+                <p class="text-center max-w-[60%]">
+                  Menjadikan HIPMI PT Institut Teknologi Telkom Purwokerto sebagai
+                  wadah kolaborasi untuk menciptakan lingkungan kampus entrepreneur
+                  dengan mahasiswa/mahasiswi yang unggul, kreatif, dan memiliki
+                  daya saing, dengan fokus pada
+                  <br />
+                  <i>
+                    <b>
+                      'Bridging Excellece, Fostering Social Entrepreneurs'
+                    </b>
+                  </i>
+                </p>
+              </div>
               <div class="flex w-full justify-center mb-2 h-[1vh]">
                 <div class="divider w-[60%] h-1 dark:border-neutral dark:bg-neutral" />
               </div>
