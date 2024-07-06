@@ -93,7 +93,7 @@ export default function Login() {
           Halo, 👋 Selamat Datang Kembali!
         </span>
         <div class="w-full flex flex-col items-stretch gap-3">
-          <label class="input input-bordered min-w-full flex items-center gap-2">
+          <label class="input input-bordered flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
