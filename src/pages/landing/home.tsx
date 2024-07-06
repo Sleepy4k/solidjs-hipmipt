@@ -5,7 +5,7 @@ import LOGOITTP from '@images/logo/ittp.png';
 import { useNavigate } from '@solidjs/router';
 import LOGOHIPMI from '@images/logo/hipmi.png';
 import { styled } from 'solid-styled-components';
-import { For, Show, Suspense, createResource } from 'solid-js';
+import { For, Index, Show, Suspense, createResource } from 'solid-js';
 
 interface INews {
   slug: string;
@@ -111,18 +111,18 @@ export default function Home() {
               </Show>
 
               <Show when={Array.isArray(news()) && news().length > 0}>
-                <For each={news()}>
+                <Index each={news()}>
                   {(news, index) => (
                     <div
-                      id={`data-${Math.floor(Math.random() * 4 + 1)}-berita-terkini-${index()}`}
+                      id={`data-${Math.floor(Math.random() * 4 + 1)}-berita-terkini-${index}`}
                       class="card bg-base-100 lg:w-[18vw] shadow-xl"
                       data-aos='fade-up'
-                      data-aos-delay={`${index() * 100}`}
+                      data-aos-delay={`${index * 100}`}
                     >
                       <figure>
                         <img
                           loading='lazy'
-                          src={news?.logo || LOGOHIPMI}
+                          src={news()?.logo || LOGOHIPMI}
                           alt="Logo Berita"
                           width={150}
                           height={150}
@@ -130,22 +130,22 @@ export default function Home() {
                       </figure>
                       <div class="card-body">
                         <div class="card-actions justify-start">
-                          <For each={news.category}>
+                          <For each={news().category}>
                             {category => <div class="badge badge-outline w-auto h-5 flex justify-center">
                               <span class='lg:text-base text-sm w-full'>{category}</span>
                             </div>}
                           </For>
                         </div>
                         <h2 class="card-title mt-3 font-extrabold text-start">
-                          {news.title}
+                          {news().title}
                         </h2>
                         <p class='text-start text-sm'>
-                          {trimText(news.content, 150)}
+                          {trimText(news().content, 150)}
                         </p>
                         <div class="card-actions justify-end">
                           <button
                             type='button'
-                            onClick={() => navigate(`/artikel/${news.slug}`)}
+                            onClick={() => navigate(`/artikel/${news().slug}`)}
                             class="btn bg-custom-yellow dark:text-neutral text-base h-[2vh] mt-[3vh] font-bold lg:text-base"
                           >
                             Selengkapnya
@@ -154,7 +154,7 @@ export default function Home() {
                       </div>
                     </div>
                   )}
-                </For>
+                </Index>
               </Show>
             </Suspense>
           </div>
