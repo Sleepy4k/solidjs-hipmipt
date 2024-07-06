@@ -1,46 +1,48 @@
 import { Theme } from '@contexts';
 import { trimText } from '@utils';
 import '@assets/style/paginate.css';
+import { IData } from '@interfaces';
 import { EThemeType } from '@enums';
 import { LandingLayout } from '@layouts';
-import { useNavigate } from '@solidjs/router';
 import LOGOHIPMI from '@images/logo/hipmi.png';
+import { A, useNavigate } from '@solidjs/router';
 import { LightPaginationNav, DarkPaginationNav, paginate } from 'solid-paginate';
 import { createResource, createSignal, For, Index, Show, Suspense, Match, Switch } from 'solid-js';
 
-interface INews {
-  slug: string;
-  title: string;
-  logo?: string;
-  content: string;
-  category: string[];
-}
-
 export default function Article() {
-  const pageSize = 6;
+  const pageSize = 6, pageLimit = 1;
   const navigate = useNavigate();
   const { theme } = Theme.useTheme();
   const [currentPage, setCurrentPage] = createSignal(1);
 
-  const [news] = createResource<INews[]>(async () => {
+  const [news] = createResource<IData.INews[]>(async () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     return [
       {
         title: 'Magang MSIB Batch 2024 Telah Dimulai!',
         slug: 'magang-msib-batch-2024-telah-dimulai',
-        category: ['Magang', 'Bisnis'],
+        category: [
+          { name: 'Magang', slug: 'magang' },
+          { name: 'Bisnis', slug: 'bisnis' }
+        ],
         content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum! Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non. Autem, aut iure placeat ab consectetur vitae praesentium?'
       },
       {
         title: 'APERTI BUMN 2024: Lomba Produk Terbaik',
         slug: 'aperti-bumn-2024-lomba-produk-terbaik',
-        category: ['Lomba', 'Produk'],
+        category: [
+          { name: 'Lomba', slug: 'lomba' },
+          { name: 'Produk', slug: 'produk' }
+        ],
         content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum! Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non. Autem, aut iure placeat ab consectetur vitae praesentium?'
       },
       {
         title: 'Biasa: Bincang Asah Usaha',
         slug: 'biasa-bincang-asah-usaha',
-        category: ['News', 'Self Improvement'],
+        category: [
+          { name: 'News', slug: 'news' },
+          { name: 'Self Improvement', slug: 'self-improvement' }
+        ],
         content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque fuga rerum eveniet totam quo, doloremque, laudantium, enim a quisquam molestias alias cum! Quasi, delectus? Itaque illo aut atque ad, quos facilis, libero molestiae reiciendis ducimus nulla cumque id debitis omnis nisi non. Autem, aut iure placeat ab consectetur vitae praesentium?'
       }
     ];
@@ -93,13 +95,15 @@ export default function Article() {
                     <div class="card-body">
                       <div class="card-actions justify-start">
                         <For each={news().category}>
-                          {category => <div class="badge badge-outline w-auto h-5 flex justify-center">
-                            <span class='lg:text-base text-sm w-full'>{category}</span>
-                          </div>}
+                          {(category) => <A class="badge badge-outline w-auto h-5 flex justify-center" href={`/blog/category/${category.slug.toLowerCase()}`}>
+                            <span class='lg:text-base text-sm w-full'>{category.name}</span>
+                          </A>}
                         </For>
                       </div>
                       <h2 class="card-title mt-3 font-extrabold text-start">
-                        {news().title}
+                        <A href={`/artikel/${news().slug}`}>
+                          {news().title}
+                        </A>
                       </h2>
                       <p class='text-start text-sm'>
                         {trimText(news().content, 150)}
@@ -122,28 +126,30 @@ export default function Article() {
         </div>
 
         <Suspense>
-          <Switch>
-            <Match when={theme() == EThemeType.DARK && Array.isArray(news()) && news().length > 6}>
-              <DarkPaginationNav
-                currentPage={currentPage()}
-                setCurrentPage={setCurrentPage}
-                pageSize={pageSize}
-                totalItems={news().length}
-                limit={1}
-                showStepOptions={true}
-              />
-            </Match>
-            <Match when={theme() == EThemeType.LIGHT && Array.isArray(news()) && news().length > 6}>
-              <LightPaginationNav
-                currentPage={currentPage()}
-                setCurrentPage={setCurrentPage}
-                pageSize={pageSize}
-                totalItems={news().length}
-                limit={1}
-                showStepOptions={true}
-              />
-            </Match>
-          </Switch>
+          <div class='mb-[5vh]'>
+            <Switch>
+              <Match when={theme() == EThemeType.DARK && Array.isArray(news()) && news().length > 6}>
+                <DarkPaginationNav
+                  limit={pageLimit}
+                  pageSize={pageSize}
+                  showStepOptions={true}
+                  totalItems={news().length}
+                  currentPage={currentPage()}
+                  setCurrentPage={setCurrentPage}
+                />
+              </Match>
+              <Match when={theme() == EThemeType.LIGHT && Array.isArray(news()) && news().length > 6}>
+                <LightPaginationNav
+                  limit={pageLimit}
+                  pageSize={pageSize}
+                  showStepOptions={true}
+                  totalItems={news().length}
+                  currentPage={currentPage()}
+                  setCurrentPage={setCurrentPage}
+                />
+              </Match>
+            </Switch>
+          </div>
         </Suspense>
       </div>
     </LandingLayout>
