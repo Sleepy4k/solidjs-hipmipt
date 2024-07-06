@@ -34,9 +34,10 @@
     "solid-forms": "^0.4.8",
     "solid-icons": "^1.1.0",
     "solid-js": "^1.8.18",
+    "solid-paginate": "^0.0.1",
     "solid-styled-components": "^0.28.5",
     "solid-toast": "^0.5.0",
-    "sweetalert2": "^11.12.1"
+    "sweetalert2": "^11.12.2"
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",
